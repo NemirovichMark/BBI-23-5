@@ -10,6 +10,8 @@ namespace Lab_6th
     {
         static void Main(string[] args)
         {
+            //test1
+            //test2
         }
     }
 }
