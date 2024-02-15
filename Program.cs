@@ -1,72 +1,93 @@
 ﻿using System;
-
+struct Player
+{
+    private string _famile;
+    private double _result;
+    private int _id;
+    public double Result => _result;
+    public int Id => _id;
+    public Player(string famile, double result, int id)
+    {
+        _famile = famile;
+        _result = result;
+        _id = id;
+    }
+    public void Print()
+    {
+        Console.WriteLine("Фамилия   {0}\t Результат {1:f2}\t ",
+                        _famile, _result);
+    }
+}
 class Program
 {
-    struct Students
-    {
-        private string _famile;
-        private double[] _subjects;
-        private double _sred;
-        public double[] Subjects => _subjects;
-        public double Sred => _sred;
-        public Students(string famile, double[] subjects)
-        {
-            _famile = famile;
-            _subjects = subjects;
-            _sred = 0;
-            for (int i = 0; i < 3; i++)
-            {
-                _sred += subjects[i];
-            }
-            _sred = _sred / 3;
-        }
-        public void Print()
-        {
-            Console.WriteLine("Фамилия   {0}\t Средний балл {1:f2}\t",
-                            _famile, _sred);
-        }
-    }
     static void Main()
     {
-        Students[] c1 = new Students[5];
-        c1[0] = new Students("Иванов", new double[] { 3, 3, 3 });
-        c1[1] = new Students("Петров", new double[] { 5, 5, 5 });
-        c1[2] = new Students("Купцов", new double[] { 3, 4, 2 });
-        c1[3] = new Students("Аксенова", new double[] { 3, 4, 3 });
-        c1[4] = new Students("Кузнецов", new double[] { 2, 2, 2 });
-        foreach (Students student in c1)
-        {
-            student.Print();
-        }
-        Sorted(c1);
+        Player[] c1 = new Player[10];
+        c1[0] = new Player("Иванов", 15.38, 1);
+        c1[1] = new Player("Петров", 16.54, 2);
+        c1[2] = new Player("Купцов", 13.51, 1);
+        c1[3] = new Player("Аксенова", 11.22, 1);
+        c1[4] = new Player("Кузнецов", 18.24, 2);
+        c1[5] = new Player("Кравцов", 19.41, 1);
+        c1[6] = new Player("Павленко", 15.31, 2);
+        c1[7] = new Player("Еремина", 15.11, 1);
+        c1[8] = new Player("Никонов", 14.26, 2);
+        c1[9] = new Player("Сидорова", 12.41, 2);
+        //Упорядочение по результатам
+        Sort(c1);
     }
-        static void Sorted(Students[]c1)
+    static void Sort(Player[] c1)
+    {
+        for (int i = 0; i < c1.Length - 1; i++)
         {
-            for (int i = 0; i < c1.Length - 1; i++)
+            double amax = c1[i].Result;
+            int imax = i;
+            for (int j = i + 1; j < c1.Length; j++)
             {
-                double amax = c1[i].Sred;
-                int imax = i;
-                for (int j = i + 1; j < c1.Length; j++)
+                if (c1[j].Result < amax)
                 {
-                    if (c1[j].Sred > amax)
-                    {
-                        amax = c1[j].Sred;
-                        imax = j;
-                    }
+                    amax = c1[j].Result;
+                    imax = j;
                 }
-                Students temp;
-                temp = c1[imax];
-                c1[imax] = c1[i];
-                c1[i] = temp;
             }
-            Console.WriteLine();
-            for (int i = 0; i < c1.Length; i++)
+            Player temp;
+            temp = c1[imax];
+            c1[imax] = c1[i];
+            c1[i] = temp;
+        }
+        Console.WriteLine();
+        Console.WriteLine("Результаты группы 1");
+        int mesto = 1;
+        for (int i = 0; i < c1.Length; i++)
+        {
+            if (c1[i].Id == 1)
             {
-                if ((c1[i].Subjects[0] != 2) & (c1[i].Subjects[1] != 2) & (c1[i].Subjects[2] != 2))
-                {
-                    c1[i].Print();
-                }
+                Console.Write("Место " + mesto + " ");
+                c1[i].Print();
+                mesto++;
             }
         }
-           
+
+        Console.WriteLine();
+        Console.WriteLine("Результаты группы 2");
+        mesto = 1;
+        for (int i = 0; i < c1.Length; i++)
+        {
+            if (c1[i].Id == 2)
+            {
+                Console.Write("Место " + mesto + " ");
+                c1[i].Print();
+                mesto++;
+            }
+        }
+        Console.WriteLine();
+        Console.WriteLine("Общий рейтинг");
+        mesto = 1;
+        for (int i = 0; i < c1.Length; i++)
+        {
+            Console.Write("Место " + mesto + " ");
+            c1[i].Print();
+            mesto++;
+        }
+    }
 }
