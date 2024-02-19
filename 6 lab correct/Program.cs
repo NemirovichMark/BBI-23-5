@@ -1,54 +1,56 @@
 ﻿using System;
 
-struct Students
+class Program
 {
-    private string _famile;
-    private int _mark;
-    private int _kolpropusk;
-    public int Mark => _mark;
-    public int Kolpropusk => _kolpropusk;
-
-    public Students(string famile, int mark, int kolpropusk)
+    struct Students
     {
-        _famile = famile;
-        _mark = mark;
-        _kolpropusk = kolpropusk;
-    }
-    public void Print()
-    {
-        Console.WriteLine("Фамилия   {0}\t Оценка {1}\t Пропуски {2}",
-                        _famile, _mark, _kolpropusk);
-    }
-    class Program
-    {
-        static void Main()
+        private string _famile;
+        private double[] _subjects;
+        private double _sred;
+        public double[] Subjects => _subjects;
+        public double Sred => _sred;
+        public Students(string famile, double[] subjects)
         {
-            Students[] c1 = new Students[]
+            _famile = famile;
+            _subjects = subjects;
+            _sred = 0;
+            for (int i = 0; i < 3; i++)
             {
-            new Students("Иванов", 2, 10),
-            new Students("Петров", 3, 2),
-            new Students("Кузнецов", 2, 13),
-            new Students("Аксенова", 5, 0),
-            new Students("Кузнецова", 2, 9)
-            };
-            foreach (Students student in c1)
-            {
-                student.Print();
+                _sred += subjects[i];
             }
-            FindProgul(c1);
+            _sred = _sred / 3;
         }
-        //Упорядочение по результатам
-        static void FindProgul(Students[] c1)
+        public void Print()
+        {
+            Console.WriteLine("Фамилия   {0}\t Средний балл {1:f2}\t",
+                            _famile, _sred);
+        }
+    }
+    static void Main()
+    {
+        Students[] c1 = new Students[5];
+        c1[0] = new Students("Иванов", new double[] { 3, 3, 3 });
+        c1[1] = new Students("Петров", new double[] { 5, 5, 5 });
+        c1[2] = new Students("Купцов", new double[] { 3, 4, 2 });
+        c1[3] = new Students("Аксенова", new double[] { 3, 4, 3 });
+        c1[4] = new Students("Кузнецов", new double[] { 2, 2, 2 });
+        foreach (Students student in c1)
+        {
+            student.Print();
+        }
+        Sorted(c1);
+    }
+        static void Sorted(Students[]c1)
         {
             for (int i = 0; i < c1.Length - 1; i++)
             {
-                double amax = c1[i].Kolpropusk;
+                double amax = c1[i].Sred;
                 int imax = i;
                 for (int j = i + 1; j < c1.Length; j++)
                 {
-                    if (c1[j].Kolpropusk > amax)
+                    if (c1[j].Sred > amax)
                     {
-                        amax = c1[j].Kolpropusk;
+                        amax = c1[j].Sred;
                         imax = j;
                     }
                 }
@@ -60,10 +62,11 @@ struct Students
             Console.WriteLine();
             for (int i = 0; i < c1.Length; i++)
             {
-                if (c1[i].Mark == 2)
+                if ((c1[i].Subjects[0] != 2) & (c1[i].Subjects[1] != 2) & (c1[i].Subjects[2] != 2))
+                {
                     c1[i].Print();
+                }
             }
         }
-    }
-
+           
 }
