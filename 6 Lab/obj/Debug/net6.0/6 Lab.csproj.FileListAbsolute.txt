@@ -1,4 +1,0 @@
-E:\МИСИС\Прога\BBI-23-5\6 Lab\obj\Debug\net6.0\6 Lab.GeneratedMSBuildEditorConfig.editorconfig
-E:\МИСИС\Прога\BBI-23-5\6 Lab\obj\Debug\net6.0\6 Lab.AssemblyInfoInputs.cache
-E:\МИСИС\Прога\BBI-23-5\6 Lab\obj\Debug\net6.0\6 Lab.AssemblyInfo.cs
-E:\МИСИС\Прога\BBI-23-5\6 Lab\obj\Debug\net6.0\6 Lab.csproj.CoreCompileInputs.cache
