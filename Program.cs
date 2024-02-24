@@ -1,83 +1,78 @@
-﻿//задача 2лвл
+﻿//задача 1лвл
+struct PersonOfYear
+{
+    private string _name;
+    private int _votes;
+    public string Name => _name;
+    public int Votes => _votes;
+
+    public PersonOfYear(string name, int votes)
+    {
+        _name = name;
+        _votes = votes;
+    }
+    public void Print()
+    {
+        Console.WriteLine("Кандидат   {0}\t" + "Кол-во голосов {1}\t", _name, _votes);
+    }
+}
+
 class Program
 {
-    struct Athlete
-    {
-        private string _lastName;
-        private double[] _attempts;
-        private double _bestResult;
-        public double BestResult => _bestResult;
-
-        public Athlete(string lastName, double[] attempts)
-        {
-            _lastName = lastName;
-            _attempts = attempts;
-            _bestResult = FindBestResult(attempts);
-        }
-
-        private double FindBestResult(double[] attempts)
-        {
-            double best = attempts[0];
-            for (int i = 1; i < attempts.Length; i++)
-            {
-                if (attempts[i] > best)
-                {
-                    best = attempts[i];
-                }
-            }
-            return best;
-        }
-
-        public void Print()
-        {
-            Console.WriteLine($"{_lastName}\t Лучший результат {_bestResult}");
-        }
-    }
-
     static void Main()
     {
-        Athlete[] athletes = new Athlete[5];
-        athletes[0] = new Athlete("Иванов", new double[] { 238, 230, 240 });
-        athletes[1] = new Athlete("Федунь", new double[] { 200, 210, 200 });
-        athletes[2] = new Athlete("Сацик", new double[] { 190, 180, 185 });
-        athletes[3] = new Athlete("Алейник", new double[] { 200, 198, 199 });
-        athletes[4] = new Athlete("Кунгур", new double[] { 213, 213, 203 });
-
-        Console.WriteLine("Протокол соревнований:");
-        foreach (Athlete athlete in athletes)
+        PersonOfYear[] candidates = new PersonOfYear[]
         {
-            athlete.Print();
+            new PersonOfYear("Бодя Федунь", 350),
+            new PersonOfYear("Федя Кунгур", 200),
+            new PersonOfYear("Дима Коил", 500),
+            new PersonOfYear("Сацик Насик", 400),
+            new PersonOfYear("Немир Марков", 150),
+            new PersonOfYear("Марк Немиров", 589),
+            new PersonOfYear("Шорти Милан", 100)
+        };
+        Console.WriteLine("Кандидаты на человека года:");
+        int TotalVotes = 0;
+        foreach (var candidate in candidates)
+        {
+            TotalVotes += candidate.Votes;
+            candidate.Print();
         }
+        FindTopCandidates(candidates);
 
-        Console.WriteLine("\nИтоговый протокол соревнований (учитывая лучший результат):");
-        BestResult(athletes);
-    }
-
-    static void BestResult(Athlete[] athletes)
-    {
+        static void FindTopCandidates(PersonOfYear[] candidates)
         {
-            int d = athletes.Length / 2;
-            Athlete temp;
-            while (d >= 1)
             {
-                for (int i = d; i < athletes.Length; i++)
+                int d = candidates.Length / 2;
+                PersonOfYear temp;
+                while (d >= 1)
                 {
-                    int j = i;
-                    while (j >= d && athletes[j - d].BestResult < athletes[j].BestResult)
+                    for (int i = d; i < candidates.Length; i++)
                     {
-                        temp = athletes[j];
-                        athletes[j] = athletes[j - d];
-                        athletes[j - d] = temp;
-                        j = j - d;
+                        int j = i;
+                        while (j >= d && candidates[j - d].Votes < candidates[j].Votes)
+                        {
+                            temp = candidates[j];
+                            candidates[j] = candidates[j - d];
+                            candidates[j - d] = temp;
+                            j = j - d;
+                        }
                     }
+                    d = d / 2;
                 }
-                d = d / 2;
             }
         }
-        foreach (Athlete athlete in athletes)
+
+        Console.WriteLine("Топ кандидатов на человека года:");
+        for (int i = 0; i < 5 && i < candidates.Length; i++)
         {
-            athlete.Print();
+            candidates[i].Print();
+        }
+        Console.WriteLine("\nДоли кандидатов в процентах от общего числа голосов:");
+        for (int i = 0; i < 5 && i < candidates.Length; i++)
+        {
+            double prosent = (double)candidates[i].Votes / TotalVotes * 100;
+            Console.WriteLine($"{candidates[i].Name}: {prosent:f2}%");
         }
     }
-
 }
