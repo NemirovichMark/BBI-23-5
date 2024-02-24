@@ -1,85 +1,83 @@
-﻿//задача 3лвл
-struct Group
-{
-    private string _name;
-    private double[] _results = new double[6];
-    private int _count = 0;
-    private int _bestgroup = 0;
-    public Group(string name, double[] results)
-    {
-        _name = name;
-        _results = results;
-        for (int i = 0; i < _results.Length; i++)
-        {
-            for (int j = 1; j <= 5; j++)
-            {
-                if (results[i] == j)
-                {
-                    _count += 6 - j;
-                }
-            }
-            if (results[i] == 1)
-            {
-                _bestgroup = 1;
-            }
-        }
-    }
-    public int bestcomand { get { return _bestgroup; } }
-    public int count { get { return _count; } }
-    public void Print(string text = "Неправда")
-    {
-        if (_name != null)
-        {
-            text = _name + " " + _count;
-        }
-        Console.WriteLine(text);
-    }
-}
+﻿//задача 2лвл
 class Program
 {
-    static void Main()
+    struct Athlete
     {
-        Group[] group = new Group[3];
-        double[] results = new double[6];
-        string name;
-        for (int i = 0; i < group.Length; i++)
+        private string _lastName;
+        private double[] _attempts;
+        private double _bestResult;
+        public double BestResult => _bestResult;
+
+        public Athlete(string lastName, double[] attempts)
         {
-            Console.WriteLine("Команда:");
-            name = Console.ReadLine();
-            Console.WriteLine("Места участников команды:");
-            for (int j = 0; j < 6; j++)
-            {
-                results[j] = double.Parse(Console.ReadLine());
-            }
-            group[i] = new Group(name, results);
-        }
-        static void FindTopCandidates(Group[] group)
-        {
-            {
-                int d = group.Length / 2;
-                Group temp;
-                while (d >= 1)
-                {
-                    for (int i = d; i < group.Length; i++)
-                    {
-                        int j = i;
-                        while (j >= d && group[j - d].bestcomand < group[j].bestcomand)
-                        {
-                            temp = group[j];
-                            group[j] = group[j - d];
-                            group[j - d] = temp;
-                            j = j - d;
-                        }
-                    }
-                    d = d / 2;
-                }
-            }
+            _lastName = lastName;
+            _attempts = attempts;
+            _bestResult = FindBestResult(attempts);
         }
 
-        Console.Write("Результаты:");
-        for (int i = 0; i < 3; i++)
+        private double FindBestResult(double[] attempts)
         {
-            group[i].Print();
+            double best = attempts[0];
+            for (int i = 1; i < attempts.Length; i++)
+            {
+                if (attempts[i] > best)
+                {
+                    best = attempts[i];
+                }
+            }
+            return best;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"{_lastName}\t Лучший результат {_bestResult}");
         }
     }
+
+    static void Main()
+    {
+        Athlete[] athletes = new Athlete[5];
+        athletes[0] = new Athlete("Иванов", new double[] { 238, 230, 240 });
+        athletes[1] = new Athlete("Федунь", new double[] { 200, 210, 200 });
+        athletes[2] = new Athlete("Сацик", new double[] { 190, 180, 185 });
+        athletes[3] = new Athlete("Алейник", new double[] { 200, 198, 199 });
+        athletes[4] = new Athlete("Кунгур", new double[] { 213, 213, 203 });
+
+        Console.WriteLine("Протокол соревнований:");
+        foreach (Athlete athlete in athletes)
+        {
+            athlete.Print();
+        }
+
+        Console.WriteLine("\nИтоговый протокол соревнований (учитывая лучший результат):");
+        BestResult(athletes);
+    }
+
+    static void BestResult(Athlete[] athletes)
+    {
+        {
+            int d = athletes.Length / 2;
+            Athlete temp;
+            while (d >= 1)
+            {
+                for (int i = d; i < athletes.Length; i++)
+                {
+                    int j = i;
+                    while (j >= d && athletes[j - d].BestResult < athletes[j].BestResult)
+                    {
+                        temp = athletes[j];
+                        athletes[j] = athletes[j - d];
+                        athletes[j - d] = temp;
+                        j = j - d;
+                    }
+                }
+                d = d / 2;
+            }
+        }
+        foreach (Athlete athlete in athletes)
+        {
+            athlete.Print();
+        }
+    }
+
 }
