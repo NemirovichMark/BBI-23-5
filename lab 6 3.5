@@ -1,0 +1,117 @@
+//Обработать результаты первенства по футболу. Результаты каждой игры заданы в виде названий команд и счета (количество забитых
+//и пропущенных мячей). Сформировать таблицу очков (выигрыш – 3, //ничья – 1, проигрыш – 0) и упорядочить результаты в соответствии с
+//занятым местом. Если сумма очков у двух команд одинакова, то сравниваются разности забитых и пропущенных мячей. Вывести результирующую таблицу, содержащую место, название команды,
+//количество очков.
+class FootballTeam
+{
+    private string name;
+    private int goalsScored;
+    private int goalsConceded;
+    private int points;
+
+    public FootballTeam(string name)
+    {
+        this.name = name;
+        this.goalsScored = 0;
+        this.goalsConceded = 0;
+        this.points = 0;
+    }
+
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+
+    public void Result(int scored, int conceded)
+    {
+        goalsScored += scored;
+        goalsConceded += conceded;
+
+        if (scored > conceded)
+            points += 3;
+        else if (scored == conceded)
+            points += 1;
+    }
+
+    public int GoalsScored
+    {
+        get { return goalsScored; }
+    }
+
+    public int GoalsConceded
+    {
+        get { return goalsConceded; }
+    }
+
+    public int Points
+    {
+        get { return points; }
+    }
+
+    public int RAZNICA
+    {
+        get { return goalsScored - goalsConceded; }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+
+        FootballTeam[] teams = new FootballTeam[]
+        {
+        new FootballTeam("ЦСКА"),
+        new FootballTeam("Динама"),
+        new FootballTeam("Спартак"),
+        new FootballTeam("Монгол")
+        };
+
+        Match(teams[0], teams[1]);
+        Match(teams[0], teams[2]);
+        Match(teams[0], teams[3]);
+
+
+        Match(teams[1], teams[0]);
+        Match(teams[1], teams[2]);
+        Match(teams[1], teams[3]);
+
+        SORT(teams);
+
+        Console.WriteLine("Место | Команда | Очки");
+        Console.WriteLine("-------------------------");
+        for (int i = 0; i < teams.Length; i++)
+        {
+            Console.WriteLine("{0,5} | {1,-7} | {2}", i + 1, teams[i].Name, teams[i].Points);
+        }
+    }
+
+    static void Match(FootballTeam team1, FootballTeam team2)
+    {
+        Random random = new Random();
+        int scored = random.Next(0, 5); 
+        int conceded = random.Next(0, 5);
+        team1.Result(scored, conceded);
+        team2.Result(conceded, scored); 
+    }
+
+    static void SORT(FootballTeam[] teams)
+    {
+        int n = teams.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (teams[j].Points < teams[j + 1].Points ||
+                    (teams[j].Points == teams[j + 1].Points && teams[j].RAZNICA < teams[j + 1].RAZNICA))
+                {
+
+                    FootballTeam temp = teams[j];
+                    teams[j] = teams[j + 1];
+                    teams[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
