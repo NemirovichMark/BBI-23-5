@@ -20,6 +20,13 @@ class Programm
         {
             _count++;
         }
+        public void Print(Answer[] answ, int PersentCounter)
+        {
+            for (int i = 0; i < 5 && i < answ.Length; i++)
+            {
+                Console.WriteLine($"На {i + 1} месте: {answ[i].Name} - {answ[i].Count * 100 / PersentCounter}%");
+            }
+        }
     }
     static void Main()
     {
@@ -61,9 +68,15 @@ class Programm
             }
         }
         SelectionSort(answ);
-        for (int i = 0; i < 5; i++)
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    Console.WriteLine($"На {i + 1} месте: {answ[i].Name} - {answ[i].Count * 100 / PersentCounter}%");
+        //}
+        foreach (Answer a in answ)
         {
-            Console.WriteLine($"На {i + 1} месте: {answ[i].Name} - {answ[i].Count * 100 / PersentCounter}%");
+            a.Print(answ, PersentCounter );
+            break;
         }
+
     }
 }
