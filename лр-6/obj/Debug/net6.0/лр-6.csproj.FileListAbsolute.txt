@@ -1,0 +1,14 @@
+C:\Users\Yulia\прога\лр-6\лр-6\bin\Debug\net6.0\лр-6.exe
+C:\Users\Yulia\прога\лр-6\лр-6\bin\Debug\net6.0\лр-6.deps.json
+C:\Users\Yulia\прога\лр-6\лр-6\bin\Debug\net6.0\лр-6.runtimeconfig.json
+C:\Users\Yulia\прога\лр-6\лр-6\bin\Debug\net6.0\лр-6.dll
+C:\Users\Yulia\прога\лр-6\лр-6\bin\Debug\net6.0\лр-6.pdb
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.AssemblyInfoInputs.cache
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.AssemblyInfo.cs
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.csproj.CoreCompileInputs.cache
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.dll
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\refint\лр-6.dll
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.pdb
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\лр-6.genruntimeconfig.cache
+C:\Users\Yulia\прога\лр-6\лр-6\obj\Debug\net6.0\ref\лр-6.dll
