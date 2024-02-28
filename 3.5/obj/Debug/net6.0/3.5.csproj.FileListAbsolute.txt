@@ -1,0 +1,14 @@
+C:\Users\Shikorae\Desktop\3.5\bin\Debug\net6.0\3.5.exe
+C:\Users\Shikorae\Desktop\3.5\bin\Debug\net6.0\3.5.deps.json
+C:\Users\Shikorae\Desktop\3.5\bin\Debug\net6.0\3.5.runtimeconfig.json
+C:\Users\Shikorae\Desktop\3.5\bin\Debug\net6.0\3.5.dll
+C:\Users\Shikorae\Desktop\3.5\bin\Debug\net6.0\3.5.pdb
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.AssemblyInfoInputs.cache
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.AssemblyInfo.cs
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.csproj.CoreCompileInputs.cache
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.dll
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\refint\3.5.dll
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.pdb
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\3.5.genruntimeconfig.cache
+C:\Users\Shikorae\Desktop\3.5\obj\Debug\net6.0\ref\3.5.dll
