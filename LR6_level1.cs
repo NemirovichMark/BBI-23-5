@@ -10,28 +10,32 @@ class Programm
         public string Name => _name;
         private int _count;
         public int Count => _count;
+        private static int _persentCounter = 0;
+        //public static int PersentCounter = 0;
+
+
 
         public Answer(string name)
         {
             _name = name;
             _count = 1;
+            _persentCounter++;
         }
         public void ResponsesCounter()
         {
             _count++;
+            _persentCounter++;
         }
-        public void Print(Answer[] answ, int PersentCounter)
+        public void Print(int place)
         {
-            for (int i = 0; i < 5 && i < answ.Length; i++)
-            {
-                Console.WriteLine($"На {i + 1} месте: {answ[i].Name} - {answ[i].Count * 100 / PersentCounter}%");
-            }
+                Console.WriteLine($"На {place} месте: {Name} - {Count * 100 / _persentCounter}%");
+
         }
     }
     static void Main()
     {
         Answer[] answ = new Answer[] { }; //массив, через добавление в который будем считать ответы
-        int PersentCounter = 0;
+        //int PersentCounter = 0; 
         string[] Responses = new[]{ "Эмма Уотсон", "Анастатися Ивлеева", //все ответы
             "Джон Смит", "Константин Ивлев", "Константин Ивлев",
             "Константин Ивлев","Эмма Уотсон","Эмма Уотсон","Эмма Уотсон",
@@ -46,36 +50,50 @@ class Programm
                 answ[Array.IndexOf(names, Responses[i])].ResponsesCounter();
             else
                 answ = answ.Append(new Answer(Responses[i])).ToArray();
-            PersentCounter++;
+            //Answer.PersentCounter++;
         }
 
-        static void SelectionSort(Answer[] Array)
+        //static void SelectionSort(Answer[] Array)
+        //{
+        //    for (int i = 0; i < Array.Length - 1; i++)
+        //    {
+        //        int min = i;
+        //        for (int j = i + 1; j < Array.Length; j++)
+        //        {
+        //            if (Array[j].Count > Array[min].Count)
+        //            {
+        //                min = j;
+        //            }
+        //        }
+        //        Answer dummy = Array[i];
+        //        Array[i] = Array[min];
+        //        Array[min] = dummy;
+        //        min = i;
+        //    }
+        //}
+        //SelectionSort(answ);
+        static void InsertionSort(Answer[] Array)
         {
-            for (int i = 0; i < Array.Length - 1; i++)
+            for (int i = 1; i < Array.Length; i++)
             {
-                int min = i;
-                for (int j = i + 1; j < Array.Length; j++)
+                Answer k = Array[i];
+                int j = i - 1;
+                while (j >= 0 && Array[j].Count < k.Count)
                 {
-                    if (Array[j].Count > Array[min].Count)
-                    {
-                        min = j;
-                    }
+                    Array[j + 1] = Array[j];
+                    j--;
                 }
-                Answer dummy = Array[i];
-                Array[i] = Array[min];
-                Array[min] = dummy;
-                min = i;
+                Array[j + 1] = k;
             }
         }
-        SelectionSort(answ);
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    Console.WriteLine($"На {i + 1} месте: {answ[i].Name} - {answ[i].Count * 100 / PersentCounter}%");
-        //}
+        InsertionSort(answ);
+        int place = 1;
         foreach (Answer a in answ)
         {
-            a.Print(answ, PersentCounter );
-            break;
+            if (place >= 6)
+                break;
+            a.Print(place);
+            place++;
         }
 
     }
