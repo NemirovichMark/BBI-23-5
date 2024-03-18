@@ -1,61 +1,102 @@
 ﻿using System;
+using System.Numerics;
+using Microsoft.VisualBasic;
 
-struct Students
+abstract class Students
 {
-    private string _famile;
-    private int _mark;
-    private int _kolpropusk;
+    protected string _famile;
+    protected int _mark;
+    protected int _kolpropusk;
     public int Mark => _mark;
     public int Kolpropusk => _kolpropusk;
-
     public Students(string famile, int mark, int kolpropusk)
     {
         _famile = famile;
         _mark = mark;
         _kolpropusk = kolpropusk;
     }
-    public void Print()
+    public virtual void Print()
     {
         Console.WriteLine("Фамилия   {0}\t Оценка {1}\t Пропуски {2}",
                         _famile, _mark, _kolpropusk);
     }
-    class Program
+}
+class Mathematics : Students
+{
+    // вызов конструктора родительского класса
+    public Mathematics(string famile, int mark, int kolpropusk) : base(famile, mark, kolpropusk)
     {
-        static void Main()
+    }
+    public override void Print()
+    {
+        Console.WriteLine("Математика: Фамилия   {0}\t Оценка {1}\t Пропуски {2}",
+                        _famile, _mark, _kolpropusk);
+    }
+}
+class Informatics : Students
+{
+    // вызов конструктора родительского класса
+    public Informatics(string famile, int mark, int kolpropusk) : base(famile, mark, kolpropusk)
+    {
+    }
+
+    public override void Print()
+    {
+        Console.WriteLine("Информатика: Фамилия   {0}\t Оценка {1}\t Пропуски {2}",
+                        _famile, _mark, _kolpropusk);
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        Students[] math = new Students[]
         {
-            Students[] c1 = new Students[]
-            {
-            new Students("Иванов", 2, 10),
-            new Students("Петров", 3, 2),
-            new Students("Кузнецов", 2, 13),
-            new Students("Аксенова", 5, 0),
-            new Students("Кузнецова", 2, 9)
-            };
-            foreach (Students student in c1)
-            {
-                student.Print();
-            }
-            FindProgul(c1);
+            new Mathematics("Иванов", 2, 10),
+            new Mathematics("Петров", 3, 2),
+            new Mathematics("Кузнецов", 2, 13),
+            new Mathematics("Аксенова", 5, 0),
+            new Mathematics("Кузин", 2, 9)
+        };
+        Students[] info = new Students[]
+        {
+            new Informatics("Иванов", 3, 4),
+            new Informatics("Петров", 5, 2),
+            new Informatics("Кузнецов", 4, 3),
+            new Informatics("Аксенова", 5, 0),
+            new Informatics("Кузин", 2, 10)
+        };
+        Console.WriteLine("Список математика:");
+        foreach (Students student in math)
+        {
+            student.Print();
         }
+        Console.WriteLine("Список информатика:");
+        foreach (Students student in info)
+        {
+            student.Print();
+        }
+        FindProgul(math);
+        FindProgul(info);
         //Упорядочение по результатам
         static void FindProgul(Students[] c1)
         {
-            for (int i = 0; i < c1.Length - 1; i++)
+            int d = c1.Length / 2;
+            Students temp;
+            while (d >= 1)
             {
-                double amax = c1[i].Kolpropusk;
-                int imax = i;
-                for (int j = i + 1; j < c1.Length; j++)
+                for (int i = d; i < c1.Length; i++)
                 {
-                    if (c1[j].Kolpropusk > amax)
+                    int j = i;
+                    while (j >= d && c1[j - d].Kolpropusk > c1[j].Kolpropusk)
                     {
-                        amax = c1[j].Kolpropusk;
-                        imax = j;
+                        temp = c1[j];
+                        c1[j] = c1[j - d];
+                        c1[j - d] = temp;
+                        j = j - d;
                     }
                 }
-                Students temp;
-                temp = c1[imax];
-                c1[imax] = c1[i];
-                c1[i] = temp;
+                d = d / 2;
             }
             Console.WriteLine();
             for (int i = 0; i < c1.Length; i++)
@@ -65,5 +106,4 @@ struct Students
             }
         }
     }
-
 }
