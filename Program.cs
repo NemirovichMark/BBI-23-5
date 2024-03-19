@@ -4,86 +4,94 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _1_1
+namespace Практика_5_2_семестр
 {
     internal class Program
     {
-        struct Students
+        static void Main(string[] args)
         {
-            public int Mark { get; private set; }
-            public int Miss { get; private set; }
-            public string Surname { get; private set; }
+            Chess[] chess = new Chess[5];
+            chess[0] = new Chess("Грэм", 0.5, 1, 0);
+            chess[1] = new Chess("Анкунин", 1, 1, 0.5);
+            chess[2] = new Chess("Артон", 0, 0.5, 0.5);
+            chess[3] = new Chess("Минхо", 0.5, 1, 1);
+            chess[4] = new Chess("Лэнгдон", 1, 1, 1);
 
-            public Students(int mark, int miss, string surname)
+            Console.WriteLine("Турнир по шахматам. Список участников.");
+            Console.WriteLine();
+            Console.WriteLine("Фамилия Партия 1 Партия 2 Партия 3");
+            for (int i = 0; i < chess.Length; i++)
             {
-                Mark = mark;
-                Miss = miss;
+                //Console.WriteLine("{0}\t {1}\t {2}\t {3}\t", chess[i].Surname, chess[i].Game1, chess[i].Game2, chess[i].Game3);
+                chess[i].Print();
+            }
+            Console.WriteLine();
+            Console.WriteLine("Фамилия Сумма баллов");
+            Result[] result = new Result[chess.Length];
+            for (int i = 0; i < chess.Length; i++)
+            {
+                double c = chess[i].Game1 + chess[i].Game2 + chess[i].Game3;
+                result[i] = new Result(chess[i].Surname, c);
+                //Console.WriteLine("{0}\t {1}", result[i].Surname, result[i].Game123);
+                result[i].Print();
+            }
+            Console.WriteLine();
+            Result temp;
+            for (int i = 0; i < chess.Length; i++)
+            {
+                for (int j = 1; j < chess.Length; j++)
+                {
+                    if (result[j - 1].Game123 < result[j].Game123)
+                    {
+                        temp = result[j - 1];
+                        result[j - 1] = result[j];
+                        result[j] = temp;
+                    }
+
+                }
+            }
+            Console.WriteLine("Турнир по шахматам. Список участников по убыванию суммы баллов.");
+            for (int i = 0; i < chess.Length; i++)
+            {
+                //Console.WriteLine("{0}\t {1}", result[i].Surname, result[i].Game123);
+                result[i].Print();
+            }
+            Console.ReadKey();
+        }
+
+        internal struct Chess
+        {
+            public string Surname { get; private set; }
+            public double Game1 { get; private set; }
+            public double Game2 { get; private set; }
+            public double Game3 { get; private set; }
+
+            public Chess(string surname, double game1, double game2, double game3)
+            {
                 Surname = surname;
+                Game1 = game1;
+                Game2 = game2;
+                Game3 = game3;
+            }
+
+            public void Print() 
+            { 
+            Console.WriteLine("{0}\t {1}\t {2}\t {3}\t", Surname, Game1, Game2, Game3);
+        }   }
+        internal struct Result
+        {
+            public string Surname { get; private set; }
+            public double Game123 { get; private set; }
+
+            public Result(string aurname, double game123)
+            {
+                Surname = aurname;
+                Game123 = game123;
             }
 
             public void Print()
             {
-                Console.WriteLine("Оценка: {0}\t Пропуски: {1}  Фамилия: {2}", Mark, Miss, Surname);
-            }
-
-            static void Main(string[] args)
-            {
-                Students[] student = new Students[5];
-                student[0] = new Students(2, 5, "Астарион");
-                student[1] = new Students(2, 10, "Карлах");
-                student[2] = new Students(5, 4, "Уилл");
-                student[3] = new Students(4, 0, "Шэдоухарт");
-                student[4] = new Students(3, 12, "Гитьянки");
-
-                Students mis;
-                Console.WriteLine("Список студентов:");
-                Console.WriteLine();
-
-                for (int i = 0; i < student.Length; i++)
-                {
-                    //Console.WriteLine("Оценка: {0}\t Пропуски: {1}  Фамилия: {2}", student[i].Mark, student[i].Miss, student[i].Surname);
-                    student[i].Print();
-                }
-
-                Console.WriteLine();
-
-                for (int i = 0; i < student.Length; i++)
-                {
-                    for (int j = 1; j < student.Length; j++)
-                    {
-                        if (student[j - 1].Miss < student[j].Miss)
-                        {
-                            mis = student[j - 1];
-                            student[j - 1] = student[j];
-                            student[j] = mis;
-                        }
-                    }
-                }//0=10
-                 // 1=5;4;12;0
-                 // j=2 i=0; j=3;;j=4
-                 //i=1; j=1; j=2; j=3 10;5;12;4;0; j=4
-                 //и т.д.
-                Console.WriteLine("Список студентов по убыванию пропусков:");
-                Console.WriteLine();
-                for (int i = 0; i < student.Length; i++)
-                {
-                    //Console.WriteLine("Оценка: {0}\t Пропуски: {1}  Фамилия: {2}", student[i].Mark, student[i].Miss, student[i].Surname);
-                    student[i].Print();
-                }
-                Console.WriteLine();
-
-                Console.WriteLine("Список студентов по убыванию пропусков с оценкой 2:");
-                Console.WriteLine();
-                for (int i = 0; i < student.Length; i++)
-                {
-                    if (student[i].Mark == 2)
-                    {
-                        //Console.WriteLine ("Оценка: {0}\t Пропуски: {1}  Фамилия: {2}", student[i].Mark, student[i].Miss, student[i].Surname);
-                        student[i].Print();
-                    }
-                }
-
-                Console.ReadKey();
+                Console.WriteLine("{0}\t {1}", Surname, Game123);
             }
         }
     }
