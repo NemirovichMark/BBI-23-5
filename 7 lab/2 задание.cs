@@ -13,12 +13,13 @@ class Person
 
 class Student : Person
 {
+    private static int nextStudentId = 1001;
     public int StudentId { get; private set; }
     private int[] examScores;
 
-    public Student(string name, int studentId, int[] scores) : base(name)
+    public Student(string name, int[] scores) : base(name)
     {
-        StudentId = studentId;
+        StudentId = nextStudentId++;
         examScores = scores;
     }
 
@@ -47,7 +48,6 @@ class Program
         Console.WriteLine("Известные результаты экзаменов для 5 учеников:");
 
         string[] names = { "Иванов", "Петров", "Сидоров", "Козлов", "Васильев" };
-        int studentId = 1001;
         int[][] knownScores = {
             new int[] { 4, 5, 3, 4 },
             new int[] { 5, 5, 4, 4 },
@@ -58,7 +58,7 @@ class Program
 
         for (int i = 0; i < 5; i++)
         {
-            Student student = new Student(names[i], studentId++, knownScores[i]);
+            Student student = new Student(names[i], knownScores[i]);
             students.Add(student);
         }
 
