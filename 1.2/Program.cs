@@ -19,29 +19,10 @@ struct Sportsmen
         fam_prepod = h;
         rez = r;
     }
-
-    //public string Familiya
-    //{
-    //    get { return familiya; }
-    //    set { familiya = value; }
-    //}
-
-    //public int Group
-    //{
-    //    get { return group; }
-    //    set { group = value; }
-    //}
-
-    //public string FamPrepod
-    //{
-    //    get { return fam_prepod; }
-    //    set { fam_prepod = value; }
-    //}
-
     public double Rez
     {
         get { return rez; }
-        set { rez = value; }
+
     }
     public void Print()
     {
@@ -75,20 +56,27 @@ class Program
     }
     static void Sort(Sportsmen[] uwu)
     {
-        int i = 0;
-        while (i < uwu.Length - 1)
+        int index = 1;
+        int indexNext = index + 1;
+        while (index<uwu.Length)
         {
-            if (i < 0 || uwu[i].Rez >= uwu[i + 1].Rez)
+            if (uwu[index - 1].Rez < uwu[index].Rez)
             {
-                i++;
+                index = indexNext;
+                indexNext++;
             }
             else
             {
-                Sportsmen temp = uwu[i];
-                uwu[i] = uwu[i + 1];
-                uwu[i + 1] = temp;
-                if (i > 0)
-                    i--;
+                Sportsmen temp = uwu[index - 1];
+                uwu[index - 1] = uwu[index];
+                uwu[index]=temp;
+                index--;
+                if (index == 0)
+                {
+                    index = indexNext;
+                    indexNext++;
+                }
+
             }
         }
     }
