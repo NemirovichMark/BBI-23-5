@@ -1,48 +1,87 @@
-﻿//1 уровень 4 задание 
-using System;
+﻿using System;
+using System.Collections.Generic;
 
-namespace HighJumpCompetition
+class Sportsman
 {
-    class Program
+    protected string lastName;
+    public float Result { get; protected set; }
+
+    public Sportsman(string lastName, float result)
     {
-        class Participant
+        this.lastName = lastName;
+        this.Result = result;
+    }
+
+    public override string ToString()
+    {
+        return string.Format(
+          $"{this.lastName,-10}\t\t{this.Result}"
+        );
+    }
+}
+
+class SkierMan : Sportsman
+{
+    public SkierMan(string lastName, float result) : base(lastName, result) { }
+}
+
+class SkierWoman : Sportsman
+{
+    public SkierWoman(string lastName, float result) : base(lastName, result) { }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        List<Sportsman> group1Men = new List<Sportsman>
         {
-            public string Name { get; set; }
-            public double BestAttempt { get; set; }
-        }
+            new SkierMan("Сидоров", 15.7f),
+            new SkierMan("Петров", 15.5f),
+            new SkierMan("Козлов", 15.3f),
+            new SkierMan("Иванов", 15.2f),
+            new SkierMan("Смирнов", 15.1f)
+        };
 
-        static void BubbleSort(Participant[] arr)
+        List<Sportsman> group2Men = new List<Sportsman>
         {
-            int n = arr.Length;
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = 0; j < n - i - 1; j++)
-                {
-                    if (arr[j].BestAttempt < arr[j + 1].BestAttempt)
-                    {
-                        Participant temp = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = temp;
-                    }
-                }
-            }
-        }
+            new SkierMan("Борисов", 14.9f),
+            new SkierMan("Алексеев", 14.8f),
+            new SkierMan("Григорьев", 14.7f),
+            new SkierMan("Дмитриев", 14.6f),
+            new SkierMan("Егоров", 14.5f)
+        };
 
-        static void Main(string[] args)
+        List<Sportsman> group1Women = new List<Sportsman>
         {
-            Participant[] participants = new Participant[5];
-            participants[0] = new Participant { Name = "Anna", BestAttempt = 1.75 };
-            participants[1] = new Participant { Name = "Bob", BestAttempt = 1.80 };
-            participants[2] = new Participant { Name = "Sveta", BestAttempt = 1.70 };
-            participants[3] = new Participant { Name = "David", BestAttempt = 1.85 };
-            participants[4] = new Participant { Name = "Eva", BestAttempt = 1.90 };
+            new SkierWoman("Иванова", 16.1f),
+            new SkierWoman("Петрова", 15.9f),
+            new SkierWoman("Сидорова", 15.8f),
+            new SkierWoman("Козлова", 15.7f),
+            new SkierWoman("Смирнова", 15.6f)
+        };
 
-            BubbleSort(participants);
+        List<Sportsman> group2Women = new List<Sportsman>
+        {
+            new SkierWoman("Григорьева", 15.4f),
+            new SkierWoman("Борисова", 15.3f),
+            new SkierWoman("Егорова", 15.2f),
+            new SkierWoman("Дмитриева", 15.1f),
+            new SkierWoman("Алексеева", 14.9f)
+        };
 
-            for (int i = 0; i < participants.Length; i++)
-            {
-                Console.WriteLine("{0}. {1} - {2} м", i + 1, participants[i].Name, participants[i].BestAttempt);
-            }
+        List<Sportsman> allParticipants = new List<Sportsman>();
+        allParticipants.AddRange(group1Men);
+        allParticipants.AddRange(group2Men);
+        allParticipants.AddRange(group1Women);
+        allParticipants.AddRange(group2Women);
+
+        Console.WriteLine("Участник\t\tРезультат");
+        Console.WriteLine("---------------------------------");
+
+        foreach (var participant in allParticipants)
+        {
+            Console.WriteLine(participant);
         }
     }
 }
