@@ -16,7 +16,6 @@
     public string Name
     {
         get { return name; }
-        set { name = value; }
     }
 
     public void Result(int scored, int conceded)
@@ -61,7 +60,7 @@ class Program
         Match(ref teams[1], ref teams[2]);
         Match(ref teams[1], ref teams[3]);
 
-        SORT(ref teams);
+        SORT(teams);
 
         Console.WriteLine("Место | Команда | Очки");
         Console.WriteLine("-------------------------");
@@ -80,12 +79,12 @@ class Program
         team2.Result(conceded, scored);
     }
 
-    static void SORT(ref FootballTeam[] teams)
+    static void SORT(FootballTeam[] teams)
     {
         int n = teams.Length;
-        for (int i = 0; i < n - 1; i++)
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < n - i - 1; j++)
+            for (int j = 0; j < n - 1; j++)
             {
                 if (teams[j].Points < teams[j + 1].Points ||
                     (teams[j].Points == teams[j + 1].Points && teams[j].RAZNICA < teams[j + 1].RAZNICA))
