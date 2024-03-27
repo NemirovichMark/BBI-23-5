@@ -1,160 +1,325 @@
-﻿//Обработать результаты первенства по футболу. Результаты каждой игры заданы
-//в виде названий команд и счета (количество забитых и пропущенных мячей).
-//Сформировать таблицу очков (выигрыш – 3, ничья – 1, проигрыш – 0) и
-//упорядочить результаты в соответствии с занятым местом. Если сумма очков у
-//двух команд одинакова, то сравниваются разности забитых и пропущенных
-//мячей. Вывести результирующую таблицу, содержащую место, название
-//команды, количество очков.
-using System;
+﻿//         //задача 1
 
-namespace lab1
-{
-    class Team
-    {
-        public string Name { get; set; }
-        public int Win { get; set; }
-        public int Lose { get; set; }
-        public int Draw { get; set; }
-        public int Goal { get; set; }
-        public int Miss { get; set; }
-        public int Score { get; set; }
-
-        public Team(string Name)
-        {
-            this.Name = Name;
-            this.Win = 0;
-            this.Lose = 0;
-            this.Draw = 0;
-            this.Goal = 0;
-            this.Miss = 0;
-            this.Score = 0;
-        }
-
-        public static bool operator ==(Team A, Team B)
-        {
-            return A.Name == B.Name;
-        }
-
-        public static bool operator !=(Team A, Team B)
-        {
-            return A.Name != B.Name;
-        }
-    }
-
-    class Match
-    {
-        public Team[] T { get; set; }
-        public int n { get; set; }
-
-        public Match()
-        {
-            this.T = new Team[100];
-            this.n = 0;
-        }
-
-        public void Add(string NameA, string NameB, int a, int b)
-        {
-            int A = 0, B = 0, C = 0;
-            if (a > b) A++;
-            if (a < b) B++;
-            if (a == b) C++;
-            bool f = false;
-            for (int i = 0; i < n; i++)
-            {
-                if (T[i].Name == NameA)
-                {
-                    T[i].Win += A;
-                    T[i].Lose += B;
-                    T[i].Draw += C;
-                    T[i].Goal += a;
-                    T[i].Miss += b;
-                    T[i].Score += A * 3 + C * 1;
-                    f = true;
-                    break;
-                }
-            }
-            if (!f)
-            {
-                T[n] = new Team(NameA);
-                T[n].Win += A;
-                T[n].Lose += B;
-                T[n].Draw += C;
-                T[n].Goal += a;
-                T[n].Miss += b;
-                T[n].Score += A * 3 + C * 1;
-                n++;
-            }
-
-            f = false;
-            for (int i = 0; i < n; i++)
-            {
-                if (T[i].Name == NameB)
-                {
-                    T[i].Win += B;
-                    T[i].Lose += A;
-                    T[i].Draw += C;
-                    T[i].Goal += b;
-                    T[i].Miss += a;
-                    T[i].Score += B * 3 + C * 1;
-                    f = true;
-                    break;
-                }
-            }
-            if (!f)
-            {
-                T[n] = new Team(NameB);
-                T[n].Win += B;
-                T[n].Lose += A;
-                T[n].Draw += C;
-                T[n].Goal += b;
-                T[n].Miss += a;
-                T[n].Score += B * 3 + C * 1;
-                n++;
-            }
-        }
-
-        public void Sort()
-        {
-            for (int i = 0; i < n - 1; i++)
-            {
-                double amax = T[i].Score;
-                int imax = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (T[i].Score > amax) //|| (T[i].Score == amax && (T[i].Win - T[i].Lose < T[imax].Win - T[imax].Lose))
-                    {
-                        amax = T[i].Score;
-                        imax = j;
-                    }
-                }
-                Team temp;
-                temp = T[imax];
-                T[imax] = T[i];
-                T[i] = temp;
-            }
-        }
-    }
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Runtime.ConstrainedExecution; //using System.Text;
+//using System.Threading.Tasks;
 
 
-    class MainClass
-    {
-        public static void Main(string[] args)
-        {
-            Match M = new Match();
-            M.Add("G", "D", 4, 0);
-            M.Add("K", "W", 5, 2);
-            M.Add("V", "Z", 1, 3);
-            M.Add("G", "Z", 3, 2);
-            M.Add("K", "D", 1, 0);
-            M.Add("W", "V", 2, 1);
-            M.Add("K", "V", 2, 2);
+//namespace labaaaaa6
+//{
+//    struct Member
+//    {
+//        private string _firstName;
+//        private string _secondName;
+//        private float _res1;
+//        private float _res2;
 
-            M.Sort();
+//        // Исправлено: изменено на public и переименовано в FIO
+//        public string FIO { get { return _firstName + " " + _secondName; } }
+//        public float BestResult { get { return _res1 > _res2 ? _res1 : _res2; } }
 
-            for (int i = 0; i < M.n; i++)
-            {
-                Console.WriteLine(i + 1 + ". " + M.T[i].Name + ": " + M.T[i].Score);
-            }
-        }
-    }
-}
+//        public Member(string firstName, string secondName, float res1, float res2)
+//        {
+//            _firstName = firstName;
+//            _secondName = secondName;
+//            _res1 = res1;
+//            _res2 = res2;
+//        }
+
+//        public void Print() => Console.WriteLine($"Name: {FIO}\nResult1: {_res1}\nResult2: {_res2}\nBestResult: {BestResult}");
+//    }
+
+//    class Program
+//    {
+//        static void Main()
+//        {
+//            Member[] members = new Member[4];
+//            members[0] = new Member("дима", "димааа", 2.4f, 1.0f);
+//            members[1] = new Member("валерий", "валериииий", 2.6f, 1.4f);
+//            members[2] = new Member("леша", "лешаааа", 1.5f, 1.3f);
+//            members[3] = new Member("рик", "морти", 2.3f, 1.4f);
+//            Sort(members);
+//            foreach (Member member in members)
+//            {
+//                // Изменено: вывод информации перемещен внутрь структуры
+//                Console.WriteLine(member.FIO + " " + member.BestResult);
+//            }
+//            Console.ReadLine();
+//        }
+
+//        static void Sort(Member[] members)
+//        {
+//            for (int i = 0; i < members.Length - 1; i++)
+//            {
+//                for (int j = i; j < members.Length; j++)
+//                {
+//                    if (members[j].BestResult > members[i].BestResult)
+//                    {
+//                        Member temp = members[i];
+//                        members[i] = members[j];
+//                        members[j] = temp;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+////задача 2
+
+
+//using System;
+//using System.Collections.Generic; //using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+
+
+//namespace labaaaaa62
+//{
+//    class Program
+//    {
+//        private struct Student
+//        {
+//            private string _name; //  добавил модификатор private
+//            private int[] _grades;
+
+//            // добавлен модификатор public и удален set
+//            public string FIO { get { return _name; } }
+
+//            public Student(string name, int[] grades)
+//            {
+//                _name = name;
+//                _grades = grades;
+//            }
+
+//            public float AverageGrade()
+//            {
+//                float res = 0;
+//                for (int i = 0; i < _grades.Length; i++)
+//                {
+//                    if (_grades[i] == 2)
+//                    {
+//                        return 0;
+//                    }
+//                    res += _grades[i];
+//                }
+//                res = res / _grades.Length;
+//                return res;
+//            }
+
+//            public void Print()
+//            {
+//                if (AverageGrade() != 0)
+//                {
+//                    Console.WriteLine($"{FIO} {AverageGrade()}"); //  вывод информации перетащил внутрь структуры
+//                }
+//                else
+//                {
+//                    Console.WriteLine($"{FIO} отчислен"); //вывод информации перемещен внутрь структуры
+//                }
+//            }
+//        }
+
+//        static void Main()
+//        {
+//            Student[] students = new Student[5];
+//            students[0] = new Student("сергей сергеййййй", new int[] { 3, 4, 5 });
+//            students[1] = new Student("джэк джэкккк", new int[] { 3, 3, 3 });
+//            students[2] = new Student("лера лераааа", new int[] { 4, 3, 4 });
+//            students[3] = new Student("рик рииикк", new int[] { 4, 4, 5 });
+//            students[4] = new Student("мартин мартинннн", new int[] { 3, 2, 5 });
+//            Sort(students);
+//            foreach (Student student in students)
+//            {
+//                student.Print();
+//            }
+//            Console.ReadLine();
+//        }
+
+//        static void Sort(Student[] students)
+//        {
+//            if (students == null || students.Length <= 0) { return; } //Сделал валидацию на пропуск к сортировке
+//            for (int i = 0; i < students.Length - 1; i++)
+//            {
+//                for (int j = i; j < students.Length; j++)
+//                {
+//                    if (students[j].AverageGrade() > students[i].AverageGrade())
+//                    {
+//                        Student temp = students[i];
+//                        students[i] = students[j];
+//                        students[j] = temp;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+////задача 3
+
+
+//using System;
+//using System.Collections.Generic; //using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+
+//namespace laaaabaaa63
+//{
+//    public struct Person
+//    {
+//        private string _name;
+//        private int _pos;
+
+//        // Исправлено: добавлен модификатор public и удален set
+//        public string Name { get { return _name; } }
+
+//        public int Pos { get { return _pos; } }
+
+//        public Person(string name, int pos)
+//        {
+//            _name = name;
+//            _pos = pos;
+//        }
+//    }
+
+//    class Program
+//    {
+//        private struct Team
+//        {
+//            private string _name;
+//            private Person[] _persons;
+
+//            public string Name { get { return _name; } }
+
+//            public Person[] Persons { get { return _persons; } }
+
+//            public Team(string name, Person[] persons)
+//            {
+//                _name = name;
+//                _persons = persons;
+//            }
+
+//            public int TeamPoints()
+//            {
+//                int points = 0;
+//                foreach (Person person in _persons)
+//                {
+//                    switch (person.Pos)
+//                    {
+//                        case (1):
+//                            points += 5;
+//                            break;
+//                        case (2):
+//                            points += 4;
+//                            break;
+//                        case (3):
+//                            points += 3;
+//                            break;
+//                        case (4):
+//                            points += 2;
+//                            break;
+//                        case (5):
+//                            points += 1;
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                }
+//                return points;
+//            }
+
+//            public void Print() => Console.WriteLine($"Team: {Name} Points: {TeamPoints()}");//Вывод информации осуществляется внутри структуры
+//        }
+
+//        static void Main()
+//        {
+//            Person[] teamgood = new Person[6];
+//            teamgood[0] = new Person("бобр", 3);
+//            teamgood[1] = new Person("киров", 6);
+//            teamgood[2] = new Person("щевченко", 8);
+//            teamgood[3] = new Person("марина", 14);
+//            teamgood[4] = new Person("ира", 16);
+//            teamgood[5] = new Person("саша", 15);
+//            Person[] teambad = new Person[6];
+//            teambad[0] = new Person("рэй", 1);
+//            teambad[1] = new Person("гослинг", 7);
+//            teambad[2] = new Person("дима", 5);
+//            teambad[3] = new Person("билан", 10);
+//            teambad[4] = new Person("апрель", 11);
+//            teambad[5] = new Person("гудгейм", 12);
+//            Person[] teamsun = new Person[6];
+//            teamsun[0] = new Person("кот", 2);
+//            teamsun[1] = new Person("грим", 4);
+//            teamsun[2] = new Person("гарри", 9);
+//            teamsun[3] = new Person("поттер", 4);
+//            teamsun[4] = new Person("рич", 17);
+//            teamsun[5] = new Person("стич", 13);
+//            Team[] teams = new Team[3];
+//            teams[0] = new Team("good", teamgood);
+//            teams[1] = new Team("bad", teambad);
+//            teams[2] = new Team("sun", teamsun);
+//            Sort(teams);
+//            foreach (Team team in teams)
+//            {
+//                team.Print();
+//            }
+//            Console.ReadLine();
+//        }
+
+//        static void Sort(Team[] teams)
+//        {
+//            for (int i = 0; i < teams.Length - 1; i++)
+//            {
+//                for (int j = i; j < teams.Length; j++)
+//                {
+//                    if (teams[j].TeamPoints() > teams[i].TeamPoints())
+//                    {
+//                        Team temp = teams[i];
+//                        teams[i] = teams[j];
+//                        teams[j] = temp;
+//                    }
+//                    else if (teams[j].TeamPoints() == teams[i].TeamPoints())
+//                    {
+//                        if (Favorite(teams[j]))
+//                        {
+//                            Team temp = teams[i];
+//                            teams[i] = teams[j];
+//                            teams[j] = temp;
+//                        }
+//                        else { continue; }
+//                    }
+//                }
+//            }
+//        }
+
+//        static bool Favorite(Team team)
+//        {
+//            foreach (Person person in team.Persons)
+//            {
+//                if (person.Pos == 1)
+//                {
+//                    return true;
+//                }
+//            }
+//            return false;
+//        }
+//    }
+//}
+
+
