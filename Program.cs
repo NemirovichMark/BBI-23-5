@@ -1,148 +1,200 @@
-﻿using System;
-//Сделать абстрактный класс, и от него создать 2-х наследников: человек года и открытие года.
-//Собрать 2 таблицы с ответами и вывести 2 таблицы (независимые).
-
-abstract class ObjectOfVote
+﻿//Сделать абстрактный класс «Прыжки в воду» с обязательным полем «Название дисциплины», и от него наследников: «с 3м» и «с 5м».
+//В каждом из классов переопределить название дисциплины (и выводить в начале таблицы).
+public class Diver
 {
-    private int _votescount;
-    public int VotesCount => _votescount;
+    private string _lastname;
+    public string LastName => _lastname;
 
-    public void Vote()
+    public Jump[] Jumps;
+
+    public double TotalScore;
+
+    public Diver(string lastName, Jump[] jumps)
     {
-        _votescount++;
+        _lastname = lastName;
+        Jumps = jumps;
+
+        //Сразу же делаем так, что бы спортсмен при создании прыгал несколько раз
+        foreach (var jump in Jumps)
+            jump.Evaluate();
+
+        CalculateTotalScore();
     }
 
-    public double GetPercentegeOfVote(int nominalVotes)
+    public double CalculateTotalScore()
     {
-        var result = VotesCount / (double)nominalVotes * 100;
+        foreach (var jump in Jumps)
+            TotalScore += jump.TotalScore;
 
-        return (double)Math.Round(result, 4);
+        TotalScore = Math.Round(TotalScore, 2);
+
+        return TotalScore;
     }
-    public abstract string ConvertToReportString(int nominalVotes);
-
 }
-internal class PersonOfTheYear : ObjectOfVote
+public class Jump
 {
-    public string Name;
+    public double Rate;
 
-    public PersonOfTheYear(string name)
+    public double[] Scores = new double[7];
+
+    public double TotalScore;
+
+    //Конструктор, который создаёт прыжок и автоматически назначает ему коэф.
+    public Jump()
     {
-        Name = name;
+        var random = new Random().Next(25, 36);
+        Rate = (double)random / (double)10;
     }
 
-    public override string ConvertToReportString(int nominalVotes) =>
-        $"{Name} Кол-во. голосов: {VotesCount} Процент: {GetPercentegeOfVote(nominalVotes)}%";
-}
-
-internal class EventOfTheYear : ObjectOfVote
-{
-    private string _eventname;
-    public string EventName => _eventname;
-    private DateTime _date;
-    public DateTime Date => _date;
-
-    public EventOfTheYear(string eventName, DateTime date)
+    //Конструктор, который создаёт прыжок и куда подаётся коэф.
+    public Jump(double rate)
     {
-        _eventname = eventName;
-        _date = date;
+        Rate = rate;
     }
 
-    public override string ConvertToReportString(int nominalVotes) =>
-        $"{EventName} Дата: {Date.Day}/{Date.Month}/{Date.Year} Кол-во. голосов: {VotesCount} Процент: {GetPercentegeOfVote(nominalVotes)}%";
-}
-class Programm
-{
-    public static void Main()
+    //Результаты прыжка
+    public void Evaluate()
     {
-        var countOfVotes = 35;
-
-        var persons = new PersonOfTheYear[] {
-            new PersonOfTheYear("Эмма Уотсон"),
-            new PersonOfTheYear("Анастатися Ивлеева"),
-            new PersonOfTheYear("Джон Смит"),
-            new PersonOfTheYear("Александра Бортич"),
-            new PersonOfTheYear("Билл Гейтс"),
-            new PersonOfTheYear("Марк Цукерберг"),
-            new PersonOfTheYear("Денис Петров"),
-            new PersonOfTheYear("Павел Дуров"),
-            new PersonOfTheYear("Алла Пугачёва"),
-            new PersonOfTheYear("Волтер Вайт"),
-            new PersonOfTheYear("Жанна Дарк"),
-            new PersonOfTheYear("Стив Джопс")
-        };
-
-        CalculatePersonOfYear(countOfVotes, persons);
-
-        var events = new EventOfTheYear[] {
-            new EventOfTheYear("Событие 1", new DateTime(2001, 9, 11)),
-            new EventOfTheYear("Событие 2", new DateTime(2007, 1, 1)),
-            new EventOfTheYear("Событие 3", new DateTime(2008, 5, 5)),
-            new EventOfTheYear("Событие 4", new DateTime(2020, 6, 6)),
-            new EventOfTheYear("Событие 5", new DateTime(2022, 12, 7)),
-            new EventOfTheYear("Событие 6", new DateTime(2002, 11, 8)),
-            new EventOfTheYear("Событие 7", new DateTime(2003, 7, 6)),
-            new EventOfTheYear("Событие 8", new DateTime(2005, 8, 9)),
-            new EventOfTheYear("Событие 9", new DateTime(2016, 9, 2)),
-            new EventOfTheYear("Событие 10", new DateTime(2019, 2, 5)),
-            new EventOfTheYear("Событие 11", new DateTime(2017, 1, 2)),
-            new EventOfTheYear("Событие 12", new DateTime(2012, 3, 4))
-        };
-
-        CalculateEventOfYear(countOfVotes, events);
-
-
-    }
-
-    public static void CalculatePersonOfYear(int countOfVotes, PersonOfTheYear[] persons)
-    {
-        CalculateObjectsOfTheYear(countOfVotes, persons);
-
-        InsertionSort(persons);
-
-        Console.WriteLine("============= Результаты (Люди года) =============");
-        foreach (PersonOfTheYear person in persons)
-            Console.WriteLine(person.ConvertToReportString(countOfVotes));
-        Console.WriteLine("==================================================");
-    }
-
-    public static void CalculateEventOfYear(int countOfVotes, EventOfTheYear[] events)
-    {
-        CalculateObjectsOfTheYear(countOfVotes, events);
-
-        InsertionSort(events);
-
-        Console.WriteLine("============= Результаты (События года) =============");
-        foreach (EventOfTheYear currentEvent in events)
-            Console.WriteLine(currentEvent.ConvertToReportString(countOfVotes));
-        Console.WriteLine("==================================================");
-    }
-
-    public static void CalculateObjectsOfTheYear(int countOfVotes, ObjectOfVote[] objectsOfVotes)
-    {
-        for (int i = 0; i < countOfVotes; i++)
+        for (int i = 0; i < 7; i++)
         {
-            var idOfObject = new Random().Next(0, objectsOfVotes.Length);
-
-            objectsOfVotes[idOfObject].Vote();
+            Scores[i] = new Random().Next(100, 601) / 100;
         }
+
+
+        _shellSort(Scores);
+
+        //Обнуление самой лучшей и худшей оценки
+        Scores[0] = 0;
+        Scores[6] = 0;
+
+        double tempScore = 0;
+
+        foreach (double score in Scores)
+        {
+            tempScore += score;
+        }
+
+        TotalScore = tempScore * Rate;
+
     }
 
-
-    static void InsertionSort(ObjectOfVote[] objectsOfVotes)
+    private static void _shellSort(double[] array)
     {
-        for (int i = 1; i < objectsOfVotes.Length; i++)
+        int n = array.Length;
+        int gap = n / 2;
+
+        while (gap > 0)
         {
-            ObjectOfVote k = objectsOfVotes[i];
-
-            int j = i - 1;
-
-            while (j >= 0 && objectsOfVotes[j].VotesCount < k.VotesCount)
+            for (int i = gap; i < n; i++)
             {
-                objectsOfVotes[j + 1] = objectsOfVotes[j];
-                j--;
+                double temp = array[i];
+                int j;
+                for (j = i; j >= gap && array[j - gap] < temp; j -= gap)
+                {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
             }
-            objectsOfVotes[j + 1] = k;
+            gap /= 2;
+        }
+    }
+}
+public abstract class WaterJumps
+{
+    public abstract string DisciplineName { get; set; }
+
+    public Diver[] Divers;
+
+    public void Start()
+    {
+        _selectionSort(Divers);
+
+        Console.WriteLine("Тип: " + DisciplineName);
+        Console.WriteLine("Место\tФамилия спортсмена\tИтоговая оценка");
+        int place = 1;
+        foreach (var diver in Divers)
+        {
+            Console.WriteLine($"{place}\t{diver.LastName}\t\t\t{diver.TotalScore}");
+            place++;
         }
     }
 
+
+    private void _selectionSort(Diver[] Array)
+    {
+        for (int i = 0; i < Array.Length - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < Array.Length; j++)
+            {
+                if (Array[j].TotalScore > Array[min].TotalScore)
+                {
+                    min = j;
+                }
+            }
+            Diver d = Array[i];
+            Array[i] = Array[min];
+            Array[min] = d;
+            min = i;
+        }
+    }
+}
+internal class WaterJumps3m : WaterJumps
+{
+    public override string DisciplineName { get; set; }
+
+    public WaterJumps3m(Diver[] divers)
+    {
+        DisciplineName = "Прыжки 3 метра";
+        Divers = divers;
+    }
+}
+internal class WaterJumps5m : WaterJumps
+{
+    public override string DisciplineName { get; set; }
+
+    public WaterJumps5m(Diver[] divers)
+    {
+        DisciplineName = "Прыжки 5 метров";
+        Divers = divers;
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        Diver[] divers = new Diver[]
+        {
+            new Diver("Иванов", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Петров", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Ткачук", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Фролов", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Семенов", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Белых", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Жучков", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Громких", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Игнатьев", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()})
+        };
+
+        //Демонстрация работы класса 3 метровых прыжков
+        WaterJumps WaterJumps3m = new WaterJumps3m(divers);
+        WaterJumps3m.Start();
+
+        Diver[] divers2 = new Diver[]
+{
+            new Diver("Иванов", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Петров", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Ткачук", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Фролов", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Семенов", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Белых", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Жучков", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Громких", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()}),
+            new Diver("Игнатьев", new Jump[]{new Jump(), new Jump(), new Jump(), new Jump()})
+};
+
+        //Демонстрация работы класса 5 метровых прыжков
+        WaterJumps WaterJumps5m = new WaterJumps5m(divers2);
+        WaterJumps5m.Start();
+    }
 }
