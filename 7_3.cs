@@ -13,7 +13,7 @@ public abstract class Group
     public double AverageMark;
     private Subject[] _subjects;
     public Subject[] Subjects => _subjects;
-    public Student[] _students;
+    protected Student[] _students;
     public Student[] Students => _students;
 
     //метод для наполнения базовых предметов
