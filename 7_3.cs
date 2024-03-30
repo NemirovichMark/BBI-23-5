@@ -11,13 +11,15 @@ public abstract class Group
     protected string _name { get; set; }
     protected double _averagemark;
     public double AverageMark;
-    public Subject[] Subjects { get; set; }
-    public Student[] Students { get; set; }
+    private Subject[] _subjects;
+    public Subject[] Subjects => _subjects;
+    public Student[] _students;
+    public Student[] Students => _students;
 
     //метод для наполнения базовых предметов
     public void SetMainSubjects()
     {
-        Subjects = new Subject[5]
+        _subjects = new Subject[5]
         {
             new Subject("Русский язык"),
             new Subject("Математика"),
@@ -41,7 +43,7 @@ public class GroupA : Group
     public GroupA(string name, Student[] students)
     {
         _name = name;
-        Students = students;
+        _students = students;
         SetMainSubjects();
         AdditionalSubjectAA = new Subject("Химия");
         AdditionalSubjectAB = new Subject("Органическая химия");
@@ -86,7 +88,7 @@ public class GroupB : Group
     public GroupB(string name, Student[] students)
     {
         _name = name;
-        Students = students;
+        _students = students;
         SetMainSubjects();
         AdditionalSubjectBA = new Subject("Экономика");
         AdditionalSubjectBB = new Subject("Маркетинг");
@@ -132,7 +134,7 @@ public class GroupC : Group
     public GroupC(string name, Student[] students)
     {
         _name = name;
-        Students = students;
+        _students = students;
         SetMainSubjects();
         AdditionalSubjectCA = new Subject("Дискретная математика");
         AdditionalSubjectCB = new Subject("Алгоритмизация");
@@ -172,7 +174,7 @@ public class GroupC : Group
 //Поток
 public class Stream
 {
-    public Group[] Groupes;
+    private Group[] Groupes;
 
     public Stream(Group[] groupes)
     {
@@ -227,30 +229,34 @@ public class Stream
 }
 public class Student
 {
-    public string Name { get; set; }
-    public string Surname { get; set; }
+    private string _name;
+    public string Name => _name;
+    private string _surname;
+    public string Surname => _surname;
 
     public Student(string name, string surname)
     {
-        Name = name;
-        Surname = surname;
+        _name = name;
+        _surname = surname;
     }
 }
 //Предмет
 public class Subject
 {
-    public string Name { get; set; }
-    public int Score { get; set; }
+    private string _name;
+    public string Name => _name;
+    private int _score;
+    public int Score => _score;
 
     public Subject(string name)
     {
-        Name = name;
-        Score = new Random().Next(1, 6);
+        _name = name;
+        _score = new Random().Next(1, 6);
     }
     public Subject(string name, int score)
     {
-        Name = name;
-        Score = score;
+        _name = name;
+        _score = score;
     }
 }
 class Program
