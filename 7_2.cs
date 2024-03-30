@@ -40,7 +40,8 @@ public class Jump
 
     private double[] Scores = new double[7];
 
-    public double TotalScore;
+    private double _totalscore;
+    public double TotalScore => _totalscore;
 
     //Конструктор, который создаёт прыжок и автоматически назначает ему коэф.
     public Jump()
@@ -77,7 +78,7 @@ public class Jump
             tempScore += score;
         }
 
-        TotalScore = tempScore * Rate;
+        _totalscore = tempScore * Rate;
 
     }
 
