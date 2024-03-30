@@ -5,14 +5,16 @@ public class Diver
     private string _lastname;
     public string LastName => _lastname;
 
-    public Jump[] Jumps;
+    private Jump[] _jumps;
+    public Jump[] Jumps => _jumps;
 
-    public double TotalScore;
+    private double _totalscore;
+    public double TotalScore => _totalscore;
 
     public Diver(string lastName, Jump[] jumps)
     {
         _lastname = lastName;
-        Jumps = jumps;
+        _jumps = jumps;
 
         //Сразу же делаем так, что бы спортсмен при создании прыгал несколько раз
         foreach (var jump in Jumps)
@@ -24,18 +26,19 @@ public class Diver
     public double CalculateTotalScore()
     {
         foreach (var jump in Jumps)
-            TotalScore += jump.TotalScore;
+            _totalscore += jump.TotalScore;
 
-        TotalScore = Math.Round(TotalScore, 2);
+        _totalscore = Math.Round(TotalScore, 2);
 
         return TotalScore;
     }
 }
 public class Jump
 {
-    public double Rate;
+    private double _rate;
+    public double Rate => _rate;
 
-    public double[] Scores = new double[7];
+    private double[] Scores = new double[7];
 
     public double TotalScore;
 
@@ -43,13 +46,13 @@ public class Jump
     public Jump()
     {
         var random = new Random().Next(25, 36);
-        Rate = (double)random / (double)10;
+        _rate = (double)random / (double)10;
     }
 
     //Конструктор, который создаёт прыжок и куда подаётся коэф.
     public Jump(double rate)
     {
-        Rate = rate;
+        _rate = rate;
     }
 
     //Результаты прыжка
@@ -103,7 +106,7 @@ public abstract class WaterJumps
 {
     public abstract string DisciplineName { get; set; }
 
-    public Diver[] Divers;
+    protected Diver[] Divers;
 
     public void Start()
     {
