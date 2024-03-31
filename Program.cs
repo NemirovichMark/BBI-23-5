@@ -1,34 +1,62 @@
 ﻿//задание 1.4
 //using System;
-//struct Sportsman
+//abstract class Participant
 //{
-//    private string name;
+//    protected string name;
 //    public string Name
 //    {
 //        get { return name; }
 //    }
-//    private double rez1;
-//    private double rez2;
-//    public Sportsman(string name, double rez1, double rez2)
+//    protected double rez1;
+//    protected double rez2;
+
+//    private bool disqualified;
+//    public Participant(string name, double rez1, double rez2)
 //    {
 //        this.name = name;
 //        this.rez1 = rez1;
 //        this.rez2 = rez2;
+//        disqualified = false;
 //    }
 
-//    public double bestrez()
+//    public abstract double bestrez();
+
+//    public bool Disqualified
 //    {
-//        if (rez1 < rez2)
+//        get { return disqualified; }
+//        set
 //        {
-//            return rez2;
-//        }
-//        else
-//        {
-//            return rez1;
+//            if (value == true)  // Участник может быть только дисквалифицирован
+//            {
+//                disqualified = true;
+//            }
 //        }
 //    }
 //}
-//class program
+
+//class Sportsman : Participant
+//{
+//    public Sportsman(string name, double rez1, double rez2) : base(name, rez1, rez2)
+//    {
+//    }
+//    public override double bestrez()
+//    {
+
+//        if (this.Disqualified)
+//        {
+//            return 0;
+//        }
+//        else
+//        {
+//            if (base.rez1 < base.rez2)
+//            { return base.rez2; }
+//            else
+//            { return base.rez1; }
+//        }
+
+//    }
+//}
+//class Program
 //{
 //    static void Main(string[] args)
 //    {
@@ -38,6 +66,8 @@
 //        sp[2] = new Sportsman("Jake", 1.24, 1.40);
 //        sp[3] = new Sportsman("Dave", 4.50, 2.40);
 //        sp[4] = new Sportsman("Ivan", 2.64, 2.75);
+
+//        sp[2].Disqualified = true; // Дисквалифицируем участника по индексу 2
 
 //        for (int i = 0; i < sp.Length - 1; i++)
 //        {
@@ -53,9 +83,9 @@
 //        }
 
 //        Console.WriteLine("Results:");
-//        for (int i = 0; i < sp.Length; i++)
+//        for (int i = 0; i < sp.Length - 1; i++) 
 //        {
-//           Console.WriteLine("Имя: {0} Лучший результат: {1:f2}", sp[i].Name, sp[i].bestrez());
+//            Console.WriteLine("Имя: {0} Лучший результат: {1:f2}", sp[i].Name, sp[i].bestrez());
 //        }
 //    }
 //}
@@ -65,9 +95,40 @@
 //задание 2.9
 
 //using System;
+
+//abstract class WinterSport
+//{
+//    protected string disciplineName;
+//    public WinterSport(string name)
+//    {
+//        disciplineName = name;
+//    }
+//    public abstract void DisplayDisciplineName();
+//}
+//class Figureskating : WinterSport
+//{
+//    public Figureskating(string name) : base(name)
+//    {
+//    }
+//    public override void DisplayDisciplineName()
+//    {
+//        Console.WriteLine($"Название дисциплины Фигурное катание: {disciplineName}");
+//    }
+//}
+
+//class Speedskating : WinterSport
+//{
+//    public Speedskating(string name) : base(name)
+//    {
+//    }
+//    public override void DisplayDisciplineName()
+//    {
+//        Console.WriteLine($"Название дисциплины Конькобежный спорт: {disciplineName}");
+//    }
+//}
 //class Program
 //{
-//    public struct Skater
+//    public class Skater
 //    {
 //        private string _surname;
 //        private int[] _scores;
@@ -80,7 +141,6 @@
 //        public string GetName()
 //        {
 //            return _surname;
-
 //        }
 //        public int GetScore(int judge)
 //        {
@@ -89,24 +149,26 @@
 //        public int TotalPlace = 0;
 //    }
 
-//    public struct Competition
+//    public class Competition
 //    {
 //        private Skater[] _skaters;
+//        private WinterSport _sport;
 
-//        public Competition(Skater[] skaters)
+//        public Competition(Skater[] skaters, WinterSport sport)
 //        {
 //            _skaters = skaters;
-
+//            _sport = sport;
 //        }
 //        public void DisplayResults()
 //        {
+//            Console.WriteLine($"Участвующие в соревнованиях по: ");
+//            _sport.DisplayDisciplineName();
 //            for (int judge = 0; judge < 7; judge++)
 //            {
 //                for (int i = 0; i < _skaters.Length - 1; i++)
 //                {
 //                    for (int j = 0; j < _skaters.Length - 1 - i; j++)
 //                    {
-
 //                        if (_skaters[j].GetScore(judge) < _skaters[j + 1].GetScore(judge))
 //                        {
 //                            Skater temp = _skaters[j];
@@ -125,7 +187,6 @@
 //            {
 //                for (int j = 0; j < _skaters.Length - 1 - i; j++)
 //                {
-
 //                    if (_skaters[j].TotalPlace > _skaters[j + 1].TotalPlace)
 //                    {
 //                        Skater temp = _skaters[j];
@@ -150,26 +211,36 @@
 //        sk[3] = new Skater("Вербин", new int[] { 0, 0, 0, 2, 3, 5, 0 });
 //        sk[4] = new Skater("Кузьмин", new int[] { 5, 1, 2, 0, 4, 6, 3 });
 
+//        Figureskating figureskating = new Figureskating("single skating");
+//        Competition competitionFigure = new Competition(sk, figureskating);
+//        competitionFigure.DisplayResults();
 
-//        Competition competition = new Competition(sk);
-//        competition.DisplayResults();
+//        Speedskating speedskating = new Speedskating("short track");
+//        Competition competitionSpeed = new Competition(sk, speedskating);
+//        competitionSpeed.DisplayResults();
 //    }
 //}
+
 
 
 //задание 3.3
 using System;
 
-struct Team
+abstract class Team
 {
-    private int[] places;
+    protected int[] places;
 
     public Team(int[] places)
     {
         this.places = places;
     }
 
-    public int CalculatePoints()
+    public abstract int CalculatePoints();
+}
+class WomenTeam : Team
+{
+    public WomenTeam(int[] places) : base(places) { }
+    public override int CalculatePoints()
     {
         int points = 0;
         for (int i = 0; i < places.Length; i++)
@@ -179,37 +250,69 @@ struct Team
         return points;
     }
 }
+class MenTeam : Team
+{
+    public MenTeam(int[] places) : base(places) { }
+    public override int CalculatePoints()
+    {
+
+        int points = 0;
+        for (int i = 0; i < places.Length; i++)
+        {
+            points += 6 - places[i];
+        }
+        return points;
+    }
+}
+
 class Program
 {
     static void Main()
     {
-        int[] placesTeam1 = { 1, 2, 6, 8, 10, 12 };
-        int[] placesTeam2 = { 3, 4, 5, 9, 11, 15 };
-        int[] placesTeam3 = { 7, 13, 14, 16, 17, 18 };
+        int[] placesWomenTeam1 = { 1, 2, 6, 8, 10, 12 };
+        int[] placesWomenTeam2 = { 3, 4, 5, 9, 11, 15 };
+        int[] placesWomenTeam3 = { 7, 13, 14, 16, 17, 18 };
 
-        Team team1 = new Team(placesTeam1);
-        Team team2 = new Team(placesTeam2);
-        Team team3 = new Team(placesTeam3);
+        int[] placesMenTeam1 = { 1, 3, 5, 7, 9, 11 };
+        int[] placesMenTeam2 = { 2, 4, 6, 8, 10, 12 };
+        int[] placesMenTeam3 = { 13, 14, 15, 16, 17, 18 };
 
-        int pointsTeam1 = team1.CalculatePoints();
-        int pointsTeam2 = team2.CalculatePoints();
-        int pointsTeam3 = team3.CalculatePoints();
+        Team[] womenTeams = new Team[3];
+        womenTeams[0] = new WomenTeam(placesWomenTeam1);
+        womenTeams[1] = new WomenTeam(placesWomenTeam2);
+        womenTeams[2] = new WomenTeam(placesWomenTeam3);
 
-        if (pointsTeam1 > pointsTeam2 && pointsTeam1 > pointsTeam3)
+        Team[] menTeams = new Team[3];
+        menTeams[0] = new MenTeam(placesMenTeam1);
+        menTeams[1] = new MenTeam(placesMenTeam2);
+        menTeams[2] = new MenTeam(placesMenTeam3);
+
+        Team maxWomenTeam = womenTeams[0];
+        Team maxMenTeam = menTeams[0];
+
+        foreach (var team in womenTeams)
         {
-            Console.WriteLine("Команда 1 - победитель!");
+            if (team.CalculatePoints() > maxWomenTeam.CalculatePoints())
+            {
+                maxWomenTeam = team;
+            }
         }
-        else if (pointsTeam2 > pointsTeam1 && pointsTeam2 > pointsTeam3)
+
+        foreach (var team in menTeams)
         {
-            Console.WriteLine("Команда 2 - победитель!");
+            if (team.CalculatePoints() > maxMenTeam.CalculatePoints())
+            {
+                maxMenTeam = team;
+            }
         }
-        else if (pointsTeam3 > pointsTeam1 && pointsTeam3 > pointsTeam2)
+
+        if (maxWomenTeam.CalculatePoints() > maxMenTeam.CalculatePoints())
         {
-            Console.WriteLine("Команда 3 - победитель!");
+            Console.WriteLine("Победила женская команда!");
         }
-        else if (placesTeam1[0] == placesTeam2[0] && placesTeam1[0] == placesTeam3[0])
+        else
         {
-            Console.WriteLine("Победила команда 1, так как участник с 1 места выступает за нее.");
+            Console.WriteLine("Победила мужская команда!");
         }
     }
 }
