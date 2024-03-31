@@ -31,7 +31,6 @@ abstract class Results
         _rez = r;
     }
 
-
     public virtual void Print()
     {
         if (time < _rez)
@@ -48,32 +47,38 @@ abstract class Results
 
 class meters100 : Results
 {
-    private static int _metr = 100;
-    public readonly int METR;
     public meters100(string sc, int g, string psc, int r) : base(sc, g, psc, r)
     {
-        METR = _metr;
     }
     public override void Print()
     {
-        if (time < _rez)
+        if (time < Rez)
         {
-            Console.WriteLine(_metr + ": " + _secondname + " " + _group + " " + _prepodsecname + " " + _rez + " " + "не сдал");
+            Console.WriteLine("100: " + _secondname + " " + _group + " " + _prepodsecname + " " + _rez + " " + "не сдал");
         }
         else
         {
-            Console.WriteLine(_metr + ": " + _secondname + " " + _group + " " + _prepodsecname + " " + _rez + " " + "сдал");
+            Console.WriteLine("100: " + _secondname + " " + _group + " " + _prepodsecname + " " + _rez + " " + "сдал");
             _k++;
         }
     }
 }
 class meters500 : Results
 {
-    private static int _metr = 500;
-    public readonly int METR;
     public meters500(string sc, int g, string psc, int r) : base(sc, g, psc, r)
     {
-        METR = _metr;
+    }
+    public override void Print()
+    {
+        if (time < Rez)
+        {
+            Console.WriteLine("500: " + _secondname + " " + _group + " " + _prepodsecname + " " + _rez + " " + "не сдал");
+        }
+        else
+        {
+            Console.WriteLine("500: " + _secondname + " " + _group + " " + _prepodsecname + " " + _rez + " " + "сдал");
+            _k++;
+        }
     }
 }
 
