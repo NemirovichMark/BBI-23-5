@@ -1,178 +1,216 @@
-﻿/*
-Соревнования по футболу между командами проводятся в два этапа. Для 
-проведения первого этапа участники разбиваются на две группы по 12 команд. 
-Для проведения второго этапа выбирается 6 лучших команд каждой группы по 
-результатам первого этапа. Составить список команд участников второго этапа.
-
-
-2.	Создать класс «Футбольная команда» с 2 классами-наследниками: 
-«Женская футбольная команда» и «Мужская футбольная команда». 
-Провести среди них отдельные соревнования, но вывести в общей таблице 
-по 6 лучших женских и мужских команд, отсортированных по общему количеству баллов 
-с указанием пола (т.е.: 1. ЦСКА женская команда 13 баллов; 2 Динамо мужская команда 12 баллов; 
-3 Спартак мужская команда 10 баллов…). Использовать динамическую связку: преобразование классов.
-*/
-
-
-abstract class FootballTeam
+﻿namespace Попытка
 {
-    protected string name;
-    protected string _s;
-    protected int _wins;
-    protected int _loses;
 
-    public int wins => _wins;
-
-
-    public FootballTeam(string names, string s, int q, int e)
+    struct OneTeam
     {
-        name = names;
-        _s = s;
-        _wins = q;
-        _loses = e;
+        public string _name;
+        public string _sex;
+        public int _wins;
+        public int _draws;
+        public int _loses;
+        public int _balls;
+
+        public int wins => _wins;
+
     }
 
-    public void Print()
-    {
-        Console.WriteLine("Название команды    {0}\t {1}\t  Победы {2:f2}",
-            name, _s, _wins);
-    }
-
-    public void Sort(FootballTeam[] a)
+    abstract class FootballTeam
     {
 
-        for (int i = 0; i < a.Length - 1; i++)
+        protected static OneTeam[] _teams;
+
+
+
+        public FootballTeam(OneTeam[] Teams)
         {
-            double amax = a[i]._wins;
-            int imax = i;
-            for (int j = i + 1; j < a.Length; j++)
+            for (int i = 0; i < Teams.Length; i++)
             {
-                if (a[j]._wins > amax)
+                Teams[i]._balls = Teams[i]._wins * 3 + Teams[i]._draws * 1;
+            }
+            _teams = Teams;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Название команды    Вид команды  Баллы   В  Н  П");
+            for (int i = 0; i < _teams.Length; i++)
+            {
+                Console.WriteLine("{0}\t {1}\t   {2:d2}   {3:d2}  {4:d2}  {5:d2}", _teams[i]._name, _teams[i]._sex,
+                    _teams[i]._balls, _teams[i]._wins, _teams[i]._draws, _teams[i]._loses);
+            }
+
+
+        }
+
+        public void SortC()
+        {
+
+            for (int i = 0; i < _teams.Length - 1; i++)
+            {
+                int imax = i;
+                for (int j = i + 1; j < _teams.Length; j++)
                 {
-                    amax = a[j]._wins;
-                    imax = j;
+                    if (_teams[j]._balls > _teams[imax]._balls)
+                    {
+                        imax = j;
+                    }
+                }
+                OneTeam temp;
+                temp = _teams[imax];
+                _teams[imax] = _teams[i];
+                _teams[i] = temp;
+            }
+        }
+        public static OneTeam GetTeam(int id)
+        {
+            return _teams[id];
+        }
+
+
+    }
+
+    class Fteam : FootballTeam
+    {
+        private const string _sex = "женская команда";
+        public Fteam(OneTeam[] Teams) : base(Teams)
+        {
+            for (var i = 0; i < Teams.Length; i++)
+            {
+                Teams[i]._sex = _sex;
+            }
+        }
+    }
+
+    class MTeam : FootballTeam
+    {
+        private const string _sex = "мужская команда";
+        public MTeam(OneTeam[] Teams) : base(Teams)
+        {
+            for (var i = 0; i < Teams.Length; i++)
+            {
+                Teams[i]._sex = _sex;
+            }
+        }
+    }
+    class AllTeam : FootballTeam
+    {
+        public AllTeam(OneTeam[] Teams) : base(Teams)
+        {
+        }
+    }
+
+
+
+
+    internal class Program
+    {
+        static void Main(string[] args)
+
+
+        {
+            string[,] FdataS = new string[12, 4]
+            {
+            { "Панды", "5", "4", "2" },
+             { "Звёзды", "5", "5", "1" },
+             { "Молния", "8", "1", "2" },
+             { "Волки", "2", "3", "6" },
+             { "Тигры", "5", "2", "4" },
+             { "Ястребы", "1", "5", "5" },
+             { "Драконы", "8", "3", "0" },
+             { "Друзья", "0", "3", "8" },
+             { "Медведи", "6", "4", "1" },
+             { "Орлы", "3", "7", "1" },
+             { "Котики", "6", "5", "0" },
+             { "Ягуары", "3", "7", "1" }
+                };
+            string[,] MdataS = new string[12, 4]
+           {
+            { "Львы", "6", "4", "1" },
+             { "Буря", "4", "5", "2" },
+             { "Ветер", "7", "2", "2" },
+             { "Лисы", "2", "3", "6" },
+             { "Банда", "5", "2", "4" },
+             { "Ночь", "8", "0", "3" },
+             { "Воля", "6", "3", "2" },
+             { "Сокол", "9", "0", "2" },
+             { "Стужа", "8", "3", "0" },
+             { "Шторм", "10", "0", "1" },
+             { "Комета", "0", "5", "6" },
+             { "Феникс", "2", "1", "8" }
+               };
+
+            OneTeam[] Fdata = new OneTeam[12];
+
+            SetOneTeam(FdataS, Fdata);
+            Fteam fteams = new Fteam(Fdata);
+            fteams.SortC();
+            Console.WriteLine("Список женских команд ");
+            Console.WriteLine();
+            fteams.Print();
+
+            OneTeam[] Mdata = new OneTeam[12];
+            SetOneTeam(MdataS, Mdata);
+            MTeam mteams = new MTeam(Mdata);  
+            mteams.SortC();
+
+            Console.WriteLine();
+            Console.WriteLine("Список мужских команд ");
+            Console.WriteLine();
+            mteams.Print();
+
+
+            OneTeam[] ALLdata = new OneTeam[12];
+            int a, r, f;
+            a = r = 0;
+            for (f = 0; f < ALLdata.Length; f++)
+            {
+                if (a >= Fdata.Length / 2)
+                {
+                    ALLdata[f] = Mdata[r];
+                    r++;
+                }
+                else if (r >= Mdata.Length / 2)
+                {
+                    ALLdata[f] = Fdata[a];
+                    a++;
+                }
+                else
+                            if (Fdata[a].wins > Mdata[r].wins)
+                {
+                    ALLdata[f] = Mdata[r];
+                    r++;
+                }
+                else
+                {
+                    ALLdata[f] = Fdata[a];
+                    a++;
                 }
             }
-            FootballTeam temp;
-            temp = a[imax];
-            a[imax] = a[i];
-            a[i] = temp;
+
+            AllTeam allteams = new AllTeam(ALLdata);
+            allteams.SortC();
+
+            Console.WriteLine();
+            Console.WriteLine("Список лучших команд");
+            Console.WriteLine();
+
+
+            allteams.Print();
+
+
+        }
+        static void SetOneTeam(string[,] sData, OneTeam[] teams)
+        {
+            for (int i = 0; i < teams.Length; i++)
+            {
+                teams[i] = new OneTeam();
+                teams[i]._name = sData[i, 0];
+                teams[i]._wins = Convert.ToInt16(sData[i, 1]);
+                teams[i]._loses = Convert.ToInt16(sData[i, 2]);
+                teams[i]._draws = Convert.ToInt16(sData[i, 3]);
+            }
+
         }
     }
 
-
-
-}
-
-class Fteam : FootballTeam
-{
-    public Fteam(string n, string h, int y, int x) : base(n, h, y, x) { }
-
-
-
-}
-
-class MTeam : FootballTeam
-{
-    public MTeam(string t, string w, int r, int e) : base(t, w, r, e) { }
-
-}
-
-
-
-
-internal class Program
-{
-    static void Main(string[] args)
-
-
-    {
-        Fteam[] d = new Fteam[]
-        {
-        new Fteam("Панды", "женская команда", 7, 5),
-        new Fteam("Звёзды", "женская команда", 8, 4),
-        new Fteam("Ягуары", "женская команда", 2, 10),
-        new Fteam("Молния", "женская команда", 3, 9),
-        new Fteam("Волки", "женская команда", 3, 9),
-        new Fteam("Тигры", "женская команда", 7, 5),
-        new Fteam("Ястребы", "женская команда", 5, 7),
-        new Fteam("Драконы", "женская команда", 4, 8),
-        new Fteam("Друзья", "женская команда", 6, 6),
-        new Fteam("Медведи", "женская команда", 5, 7),
-        new Fteam("Орлы", "женская команда", 7, 5),
-        new Fteam("Котики", "женская команда", 8, 4)
-
-        };
-
-        MTeam[] m = new MTeam[]
-        {
-        new MTeam("Львы", "мужская команда", 6, 6),
-        new MTeam("Смельчаки","мужская команда", 4, 8),
-        new MTeam("Ветер", "мужская команда", 7, 5),
-        new MTeam("Лисы", "мужская команда", 2, 10),
-        new MTeam("Банда","мужская команда", 5, 7),
-        new MTeam("Ночь", "мужская команда", 8, 4),
-        new MTeam("Воля", "мужская команда", 6, 6),
-        new MTeam("Сокол", "мужская команда", 9, 3),
-        new MTeam("Стужа","мужская команда", 8, 4),
-        new MTeam("Шторм", "мужская команда", 10, 2),
-        new MTeam("Комета", "мужская команда", 7, 5),
-        new MTeam("Феникс", "мужская команда", 2, 10)
-        };
-
-        foreach (var sportsmen in d)
-        {
-            sportsmen.Sort(d);
-        }
-        foreach (var sportsmen in m)
-        {
-            sportsmen.Sort(m);
-        }
-
-        FootballTeam[] c = new FootballTeam[12];
-        int a, r, f;
-        a = r = 0;
-        for (f = 0; f < c.Length; f++)
-        {
-            if (a >= d.Length / 2)
-            {
-                c[f] = m[r];
-                r++;
-            }
-            else if (r >= m.Length / 2)
-            {
-                c[f] = d[a];
-                a++;
-            }
-            else
-                        if (d[a].wins > m[r].wins)
-            {
-                c[f] = m[r];
-                r++;
-            }
-            else
-            {
-                c[f] = d[a];
-                a++;
-            }
-        }
-
-        foreach (var sportsmen in c)
-        {
-            sportsmen.Sort(c);
-        }
-
-
-        Console.WriteLine("Список лучших команд");
-        Console.WriteLine();
-
-        foreach (var sportsmen in c)
-        {
-
-            { sportsmen.Print(); }
-        }
-
-
-
-    }
 }

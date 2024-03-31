@@ -1,36 +1,24 @@
-﻿/* 
-Результаты соревнований по прыжкам в длину определяются по сумме двух
-попыток. В протоколе для каждого участника указываются: фамилия, общество,
-результаты первой и второй попыток. Вывести протокол в виде таблицы с
-заголовком в порядке занятых мест.
-
-1. Добавить поле «дисквалификация» и метод, который позволяет дисквалифицировать участника. 
-В итоговую таблицу такие участники входить не должны. 
-
-*/
-
-
-
-struct Sportsmen
+﻿struct Sportsmen
 {
     private string famile;
     private string society;
-    private double _rez1, _rez2, _rez;
-    private string _disqualification;
+    public double _rez1 { get; private set; }
+    public double _rez2 { get; private set; }
+    private double _rez;
+
     public Sportsmen(string famile1, string society1,
-    double rezz1, double rezz2, string disqualification)
+    double rezz1, double rezz2)
     {
         famile = famile1;
         society = society1;
         _rez1 = rezz1;
         _rez2 = rezz2;
         _rez = _rez1 + _rez2;
-        _disqualification = disqualification;
     }
 
     public void Disqualification()
     {
-        if (_disqualification != "дисквалифицирован")
+        if (_rez1 != 0 && _rez2 != 0)
         {
 
             Console.WriteLine("Фамилия {0}\t  Общество {1}\t 1 попытка {2:f2}  2 попытка {3:f2}  Результат  {4:f2}",
@@ -64,20 +52,21 @@ class Program
     static void Main(string[] args)
     {
         Sportsmen[] sp = new Sportsmen[9];
-        sp[0] = new Sportsmen("Иванов", "Юмористы", 1.50, 1.52, "дисквалифицирован");
-        sp[1] = new Sportsmen("Петров", "Синяя Лагуна", 1.55, 1.80, "нарушений нет");
-        sp[2] = new Sportsmen("Сидоров", "Солнце", 1.47, 1.50, "дисквалифицирован");
-        sp[3] = new Sportsmen("Любимов", "Хмурая Туча", 1.46, 1.43, "нарушений нет");
-        sp[4] = new Sportsmen("Макаров", "Фонарь", 1.64, 1.41, "нарушений нет");
-        sp[5] = new Sportsmen("Зайцев", "Удача", 1.24, 1.47, "нарушений нет");
-        sp[6] = new Sportsmen("Костин", "Символ", 1.59, 1.40, "дисквалифицирован");
-        sp[7] = new Sportsmen("Мишкин", "Небеса", 1.52, 1.64, "нарушений нет");
-        sp[8] = new Sportsmen("Рябинин", "Радость", 1.62, 1.57, "нарушений нет");
+        sp[0] = new Sportsmen("Иванов", "Юмористы", 0, 1.52);
+        sp[1] = new Sportsmen("Петров", "Синяя Лагуна", 1.55, 1.80);
+        sp[2] = new Sportsmen("Сидоров", "Солнце", 1.47, 1.50);
+        sp[3] = new Sportsmen("Любимов", "Хмурая Туча", 1.46, 0);
+        sp[4] = new Sportsmen("Макаров", "Фонарь", 1.64, 1.41);
+        sp[5] = new Sportsmen("Зайцев", "Удача", 1.24, 1.47);
+        sp[6] = new Sportsmen("Костин", "Символ", 0, 1.40);
+        sp[7] = new Sportsmen("Мишкин", "Небеса", 1.52, 1.64);
+        sp[8] = new Sportsmen("Рябинин", "Радость", 1.62, 0);
 
         foreach (var sportsmen in sp)
         {
             sportsmen.Sort(sp);
         }
+
         foreach (var sportsmen in sp)
         {
             sportsmen.Disqualification();
