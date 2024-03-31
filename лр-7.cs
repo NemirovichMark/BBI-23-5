@@ -1,6 +1,6 @@
 ﻿//задание 1.4
 //using System;
-// abstract class Participant
+//abstract class Participant
 //{
 //    protected string name;
 //    public string Name
@@ -24,13 +24,18 @@
 //    public bool Disqualified
 //    {
 //        get { return disqualified; }
-//        set { disqualified = value; }
+//        set
+//        {
+//            if (value == true)  // Участник может быть только дисквалифицирован
+//            {
+//                disqualified = true;
+//            }
+//        }
 //    }
 //}
 
 //class Sportsman : Participant
 //{
-//    public int dis = 0;
 //    public Sportsman(string name, double rez1, double rez2) : base(name, rez1, rez2)
 //    {
 //    }
@@ -40,7 +45,6 @@
 //        if (this.Disqualified)
 //        {
 //            return 0;
-//            dis++;
 //        }
 //        else
 //        {
@@ -63,7 +67,7 @@
 //        sp[3] = new Sportsman("Dave", 4.50, 2.40);
 //        sp[4] = new Sportsman("Ivan", 2.64, 2.75);
 
-//        sp[2].Disqualified = true;
+//        sp[2].Disqualified = true; // Дисквалифицируем участника по индексу 2
 
 //        for (int i = 0; i < sp.Length - 1; i++)
 //        {
@@ -79,7 +83,7 @@
 //        }
 
 //        Console.WriteLine("Results:");
-//        for (int i = 0; i < sp.Length - 1; i++) //исправить длину (я хз как)
+//        for (int i = 0; i < sp.Length - 1; i++) 
 //        {
 //            Console.WriteLine("Имя: {0} Лучший результат: {1:f2}", sp[i].Name, sp[i].bestrez());
 //        }
@@ -145,16 +149,20 @@
 //        public int TotalPlace = 0;
 //    }
 
-//    public class CompetitionFigure
+//    public class Competition
 //    {
 //        private Skater[] _skaters;
+//        private WinterSport _sport;
 
-//        public CompetitionFigure(Skater[] skaters)
+//        public Competition(Skater[] skaters, WinterSport sport)
 //        {
 //            _skaters = skaters;
+//            _sport = sport;
 //        }
 //        public void DisplayResults()
 //        {
+//            Console.WriteLine($"Участвующие в соревнованиях по: ");
+//            _sport.DisplayDisciplineName();
 //            for (int judge = 0; judge < 7; judge++)
 //            {
 //                for (int i = 0; i < _skaters.Length - 1; i++)
@@ -179,7 +187,6 @@
 //            {
 //                for (int j = 0; j < _skaters.Length - 1 - i; j++)
 //                {
-
 //                    if (_skaters[j].TotalPlace > _skaters[j + 1].TotalPlace)
 //                    {
 //                        Skater temp = _skaters[j];
@@ -205,15 +212,15 @@
 //        sk[4] = new Skater("Кузьмин", new int[] { 5, 1, 2, 0, 4, 6, 3 });
 
 //        Figureskating figureskating = new Figureskating("single skating");
-//        figureskating.DisplayDisciplineName();
-
-//        CompetitionFigure competition = new CompetitionFigure(sk);
-//        competition.DisplayResults();
+//        Competition competitionFigure = new Competition(sk, figureskating);
+//        competitionFigure.DisplayResults();
 
 //        Speedskating speedskating = new Speedskating("short track");
-//        speedskating.DisplayDisciplineName();
+//        Competition competitionSpeed = new Competition(sk, speedskating);
+//        competitionSpeed.DisplayResults();
 //    }
 //}
+
 
 
 //задание 3.3
@@ -245,7 +252,7 @@ class WomenTeam : Team
 }
 class MenTeam : Team
 {
-    public MenTeam (int[] places) : base (places) { }
+    public MenTeam(int[] places) : base(places) { }
     public override int CalculatePoints()
     {
 
@@ -262,33 +269,50 @@ class Program
 {
     static void Main()
     {
-        int[] placesWomenTeam = { 1, 2, 6, 8, 10, 12 };
-        int[] placesMenTeam1 = { 3, 4, 5, 9, 11, 15 };
-        int[] placesMenTeam2 = { 7, 13, 14, 16, 17, 18 };
+        int[] placesWomenTeam1 = { 1, 2, 6, 8, 10, 12 };
+        int[] placesWomenTeam2 = { 3, 4, 5, 9, 11, 15 };
+        int[] placesWomenTeam3 = { 7, 13, 14, 16, 17, 18 };
 
-        Team menteam1 = new MenTeam(placesMenTeam1);
-        Team menteam2 = new MenTeam(placesMenTeam2);
-        Team womenteam = new WomenTeam(placesWomenTeam);
+        int[] placesMenTeam1 = { 1, 3, 5, 7, 9, 11 };
+        int[] placesMenTeam2 = { 2, 4, 6, 8, 10, 12 };
+        int[] placesMenTeam3 = { 13, 14, 15, 16, 17, 18 };
 
-        int pointsMenTeam1 = menteam1.CalculatePoints();
-        int pointsMenTeam2 = menteam2.CalculatePoints();
-        int pointsWomenTeam = womenteam.CalculatePoints();
+        Team[] womenTeams = new Team[3];
+        womenTeams[0] = new WomenTeam(placesWomenTeam1);
+        womenTeams[1] = new WomenTeam(placesWomenTeam2);
+        womenTeams[2] = new WomenTeam(placesWomenTeam3);
 
-        if (pointsMenTeam1 > pointsMenTeam2 && pointsMenTeam1 > pointsWomenTeam)
+        Team[] menTeams = new Team[3];
+        menTeams[0] = new MenTeam(placesMenTeam1);
+        menTeams[1] = new MenTeam(placesMenTeam2);
+        menTeams[2] = new MenTeam(placesMenTeam3);
+
+        Team maxWomenTeam = womenTeams[0];
+        Team maxMenTeam = menTeams[0];
+
+        foreach (var team in womenTeams)
         {
-            Console.WriteLine("Команда мужчин 1 - победитель!");
+            if (team.CalculatePoints() > maxWomenTeam.CalculatePoints())
+            {
+                maxWomenTeam = team;
+            }
         }
-        else if (pointsMenTeam2 > pointsMenTeam1 && pointsMenTeam2 > pointsWomenTeam)
+
+        foreach (var team in menTeams)
         {
-            Console.WriteLine("Команда мужчин 2 - победитель!");
+            if (team.CalculatePoints() > maxMenTeam.CalculatePoints())
+            {
+                maxMenTeam = team;
+            }
         }
-        else if (pointsWomenTeam > pointsMenTeam1 && pointsWomenTeam > pointsMenTeam2)
+
+        if (maxWomenTeam.CalculatePoints() > maxMenTeam.CalculatePoints())
         {
-            Console.WriteLine("Команда женщин - победитель!");
+            Console.WriteLine("Победила женская команда!");
         }
-        else if (placesMenTeam1[0] == placesMenTeam2[0] && placesMenTeam1[0] == placesWomenTeam[0])
+        else
         {
-            Console.WriteLine("Победила команда 1, так как участник с 1 места выступает за нее.");
+            Console.WriteLine("Победила мужская команда!");
         }
     }
 }
