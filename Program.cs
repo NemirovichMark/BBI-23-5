@@ -1,80 +1,74 @@
 ﻿
+struct Lizhniki
+{
+    public string surname;
+    public int time;
+}
+
 class Program
-{        
-    struct Lizhniki
+{
+    static void Main()
     {
-        private string lastname;
-        private int group;
-        public double deltatime;
-
-        public Lizhniki(string ln, int gr, double dt)
-        {
-            lastname = ln;
-            group = gr;
-            deltatime = dt;
-        }
-
-        public void Print(int place)
-        {
-            Console.WriteLine(" {0, 3}  {1, 3}  {2, 10}  {3}m {4, 2:f0}s ", place, group, lastname, Math.Floor(deltatime / 60), 60 * (deltatime / 60 - Math.Floor(deltatime / 60)));
-        }
-
-    }
-    static void Main(string[] args)
-    {
-
-
-        int N = 10;
-        Random rand = new Random();
-        string[] lastnames =
-        {
-            "Бе",
-            "Большунов",
-            "Шипулин",
-            "Иванов",
-            "Кленов",
-            "Джака",
-            "Володцев",
-            "Ярмолин",
-            "Дамирбаев",
+        Lizhniki[] group1 = {
+            new Lizhniki { surname = "Иванов", time = 30 },
+            new Lizhniki { surname = "Петров", time = 25 },
+            new Lizhniki { surname = "Сидоров", time = 28 }
         };
 
-        Lizhniki[] results = new Lizhniki[N];
-        for (int i = 0; i < N; i++)
+        Lizhniki[] group2 = {
+            new Lizhniki { surname = "Смирнов", time = 27 },
+            new Lizhniki { surname = "Козлов", time = 26 },
+            new Lizhniki { surname = "Морозов", time = 29 }
+        };
+
+        SortResults(group1);
+        SortResults(group2);
+
+        Console.WriteLine("Группа 1:");
+        PrintResults(group1);
+
+        Console.WriteLine("Группа 2:");
+        PrintResults(group2);
+
+        Lizhniki[] combinedResults = CombineResults(group1, group2);
+
+        Console.WriteLine("Объединенные результаты:");
+        PrintResults(combinedResults);
+    }
+
+    static void SortResults(Lizhniki[] results)
+    {
+        for (int i = 0; i < results.Length - 1; i++)
         {
-            int lastnamesIndex = rand.Next(lastnames.Length);
-            double result = 120 + rand.NextDouble() *100;
-            Lizhniki snowData = new Lizhniki(lastnames[lastnamesIndex], i % 2, result);
-            results[i] = snowData;
-        }
-        static void Sort(Lizhniki[] results, int n)
-        {
-            int i = 0;
-            while (i < n)
+            for (int j = 0; j < results.Length - 1 - i; j++)
             {
-                if (i == 0)
-                    i++;
-                if (results[i].deltatime >= results[i - 1].deltatime)
-                    i++;
-                else
+                if (results[j].time > results[j + 1].time)
                 {
-                    Lizhniki t = results[i];
-                    results[i] = results[i - 1];
-                    results[i - 1] = t;
-                    i--;
+                    Lizhniki temp = results[j];
+                    results[j] = results[j + 1];
+                    results[j + 1] = temp;
                 }
-
-
             }
         }
-        Sort(results, N);
-        Console.WriteLine("Место  Группа Фамилия  Время");
-        
-        int place = 1;
-        foreach (Lizhniki data in results)
-        {
-            data.Print(place++);
-        }
+    }
 
+    static void PrintResults(Lizhniki[] results)
+    {
+        Console.WriteLine("Фамилия\t\tВремя");
+        foreach (var Lizhniki in results)
+        {
+            Console.WriteLine($"{Lizhniki.surname}\t\t{Lizhniki.time}");
+        }
+    }
+
+    static Lizhniki[] CombineResults(Lizhniki[] group1, Lizhniki[] group2)
+    {
+        Lizhniki[] combinedResults = new Lizhniki[group1.Length + group2.Length];
+        Array.Copy(group1, combinedResults, group1.Length);
+        Array.Copy(group2, 0, combinedResults, group1.Length, group2.Length);
+
+        SortResults(combinedResults);
+
+        return combinedResults;
     }
 }
