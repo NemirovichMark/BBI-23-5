@@ -2,6 +2,7 @@
 //Сделать абстрактный класс, и от него создать 2-х наследников: человек года и открытие года.
 //Собрать 2 таблицы с ответами и вывести 2 таблицы (независимые).
 
+
 abstract class ObjectOfVote
 {
     private int _votescount;
@@ -12,7 +13,7 @@ abstract class ObjectOfVote
         _votescount++;
     }
 
-    public double GetPercentegeOfVote(int nominalVotes)
+    protected double GetPercentegeOfVote(int nominalVotes)//
     {
         var result = VotesCount / (double)nominalVotes * 100;
 
@@ -20,26 +21,88 @@ abstract class ObjectOfVote
     }
     public abstract string ConvertToReportString(int nominalVotes);
 
+    //public abstract void MergeSort(ObjectOfVote[] objectsOfVotes);
+    //public static void MergeSort(ObjectOfVote[] objectsOfVotes)
+    //{
+    //    if (objectsOfVotes.Length <= 1)
+    //        return;
+
+    //    int middle = objectsOfVotes.Length / 2;
+    //    ObjectOfVote[] left = new ObjectOfVote[middle];
+    //    ObjectOfVote[] right = new ObjectOfVote[objectsOfVotes.Length - middle];
+
+    //    for (int i = 0; i < middle; i++)
+    //    {
+    //        left[i] = objectsOfVotes[i];
+    //    }
+
+    //    for (int i = middle; i < objectsOfVotes.Length; i++)
+    //    {
+    //        right[i - middle] = objectsOfVotes[i];
+    //    }
+
+    //    MergeSort(left);
+    //    MergeSort(right);
+    //    Merge(left, right, objectsOfVotes);
+    //}
+
+    //private static void Merge(ObjectOfVote[] left, ObjectOfVote[] right, ObjectOfVote[] objectsOfVotes)
+    //{
+    //    int leftIndex = 0;
+    //    int rightIndex = 0;
+    //    int resultIndex = 0;
+
+    //    while (leftIndex < left.Length && rightIndex < right.Length)
+    //    {
+    //        if (left[leftIndex].VotesCount >= right[rightIndex].VotesCount)
+    //        {
+    //            objectsOfVotes[resultIndex] = left[leftIndex];
+    //            leftIndex++;
+    //        }
+    //        else
+    //        {
+    //            objectsOfVotes[resultIndex] = right[rightIndex];
+    //            rightIndex++;
+    //        }
+    //        resultIndex++;
+    //    }
+
+    //    while (leftIndex < left.Length)
+    //    {
+    //        objectsOfVotes[resultIndex] = left[leftIndex];
+    //        leftIndex++;
+    //        resultIndex++;
+    //    }
+
+    //    while (rightIndex < right.Length)
+    //    {
+    //        objectsOfVotes[resultIndex] = right[rightIndex];
+    //        rightIndex++;
+    //        resultIndex++;
+    //    }
+    //}
 }
-internal class PersonOfTheYear : ObjectOfVote
+class PersonOfTheYear : ObjectOfVote
 {
-    public string Name;
+    private string _name;
 
     public PersonOfTheYear(string name)
     {
-        Name = name;
+        _name = name;
     }
 
     public override string ConvertToReportString(int nominalVotes) =>
-        $"{Name} Кол-во. голосов: {VotesCount} Процент: {GetPercentegeOfVote(nominalVotes)}%";
+        $"{_name} Кол-во. голосов: {VotesCount} Процент: {GetPercentegeOfVote(nominalVotes)}%";
+
+    //public override void MergeSort(PersonOfTheYear[] personOfTheyear);
 }
 
-internal class EventOfTheYear : ObjectOfVote
+class EventOfTheYear : ObjectOfVote
 {
     private string _eventname;
-    public string EventName => _eventname;
+    //public string EventName => _eventname;
     private DateTime _date;
-    public DateTime Date => _date;
+    //public DateTime Date => _date;
 
     public EventOfTheYear(string eventName, DateTime date)
     {
@@ -48,7 +111,9 @@ internal class EventOfTheYear : ObjectOfVote
     }
 
     public override string ConvertToReportString(int nominalVotes) =>
-        $"{EventName} Дата: {Date.Day}/{Date.Month}/{Date.Year} Кол-во. голосов: {VotesCount} Процент: {GetPercentegeOfVote(nominalVotes)}%";
+        $"{_eventname} Дата: {_date.Day}/{_date.Month}/{_date.Year} Кол-во. голосов: {VotesCount} Процент: {GetPercentegeOfVote(nominalVotes)}%";
+
+    //public override void MergeSort(EventOfTheYear[] eventOfTheyear);
 }
 class Programm
 {
@@ -90,10 +155,9 @@ class Programm
 
         CalculateEventOfYear(countOfVotes, events);
 
-
     }
 
-    public static void CalculatePersonOfYear(int countOfVotes, PersonOfTheYear[] persons)
+    static void CalculatePersonOfYear(int countOfVotes, PersonOfTheYear[] persons)
     {
         CalculateObjectsOfTheYear(countOfVotes, persons);
 
@@ -105,7 +169,7 @@ class Programm
         Console.WriteLine("==================================================");
     }
 
-    public static void CalculateEventOfYear(int countOfVotes, EventOfTheYear[] events)
+    static void CalculateEventOfYear(int countOfVotes, EventOfTheYear[] events)
     {
         CalculateObjectsOfTheYear(countOfVotes, events);
 
@@ -117,7 +181,7 @@ class Programm
         Console.WriteLine("==================================================");
     }
 
-    public static void CalculateObjectsOfTheYear(int countOfVotes, ObjectOfVote[] objectsOfVotes)
+    static void CalculateObjectsOfTheYear(int countOfVotes, ObjectOfVote[] objectsOfVotes)
     {
         for (int i = 0; i < countOfVotes; i++)
         {
@@ -144,5 +208,5 @@ class Programm
             objectsOfVotes[j + 1] = k;
         }
     }
-
 }
+
