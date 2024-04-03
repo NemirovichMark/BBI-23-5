@@ -46,23 +46,18 @@ class Program
         Answer.SetSum(total);
 
 
-        for (int i = 0; i < cl.Length - 1; i++)
+        for (int i = 1; i < cl.Length; i++)
         {
-            double amax = cl[i].Count;
-            int imax = i;
-            for (int j = i + 1; j < cl.Length; j++)
+            Answer temp = cl[i];
+            int j = i - 1;
+            while (j >= 0 && cl[j].Count < temp.Count)
             {
-                if (amax < cl[j].Count)
-                {
-                    amax = cl[j].Count;
-                    imax = j;
-                }
+                cl[j + 1] = cl[j];
+                j--;
             }
-            Answer temp;
-            temp = cl[imax];
-            cl[imax] = cl[i];
-            cl[i] = temp;
+            cl[j + 1] = temp;
         }
+
         for (int i = 0; i < cl.Length; i++)
         {
             cl[i].Get_Percent();
