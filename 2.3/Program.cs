@@ -17,29 +17,6 @@ struct Sportsmen
         try3 = t3;
     }
 
-    //public string Familiya
-    //{
-    //    get { return familiya; }
-    //    set { familiya = value; }
-    //}
-
-    //public double Tru1
-    //{
-    //    get { return try1; }
-    //    set { try1 = value; }
-    //}
-
-    //public double Try2
-    //{
-    //    get { return try2; }
-    //    set { try2 = value; }
-    //}
-
-    //public double Try3
-    //{
-    //    get { return try3; }
-    //    set { try3 = value; }
-    //}
     public double TheBestTry()
     {
         double max = try1;
@@ -64,19 +41,57 @@ struct Sportsmen
 
 class Program
 {
-
     static void Main(string[] args)
     {
         Sportsmen[] sp = new Sportsmen[5];
         sp[0] = new Sportsmen("Иванов", 2.3, 2.1, 2.4);
         sp[1] = new Sportsmen("Сидоров", 1.4, 2.6, 1.5);
-        sp[2] = new Sportsmen("Петров", 2.2, 2, 1.3);
+        sp[2] = new Sportsmen("Петров", 3.2, 2, 1.3);
         sp[3] = new Sportsmen("Кравченко", 2.7, 2.4, 1.9);
         sp[4] = new Sportsmen("Макаров", 3.1, 2.8, 2.9);
 
-        foreach (var sportsman in sp)
+        double[] bestTries = new double[sp.Length];
+        for (int i = 0; i < sp.Length; i++)
+        {
+            bestTries[i] = sp[i].TheBestTry();
+        }
+
+        Sort(bestTries);
+
+
+        Sportsmen[] SortSportsmen = new Sportsmen[sp.Length];
+        for (int i = 0; i < sp.Length; i++)
+        {
+            foreach (var sportsman in sp)
+            {
+                if (sportsman.TheBestTry() == bestTries[i])
+                {
+                    SortSportsmen[i] = sportsman;
+                    break;
+                }
+            }
+        }
+
+        foreach (var sportsman in SortSportsmen)
         {
             sportsman.Print();
+        }
+    }
+
+    static void Sort(double[] array)
+    {
+        int n = array.Length;
+        for (int i = 1; i < n; ++i)
+        {
+            double k = array[i];
+            int j = i - 1;
+
+            while (j >= 0 && array[j] > k)
+            {
+                array[j + 1] = array[j];
+                j = j - 1;
+            }
+            array[j + 1] = k;
         }
     }
 }
