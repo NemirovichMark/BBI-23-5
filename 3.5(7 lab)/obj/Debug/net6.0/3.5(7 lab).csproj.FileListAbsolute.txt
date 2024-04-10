@@ -1,0 +1,14 @@
+C:\Users\Shikorae\Desktop\3.5(7 lab)\bin\Debug\net6.0\3.5(7 lab).exe
+C:\Users\Shikorae\Desktop\3.5(7 lab)\bin\Debug\net6.0\3.5(7 lab).deps.json
+C:\Users\Shikorae\Desktop\3.5(7 lab)\bin\Debug\net6.0\3.5(7 lab).runtimeconfig.json
+C:\Users\Shikorae\Desktop\3.5(7 lab)\bin\Debug\net6.0\3.5(7 lab).dll
+C:\Users\Shikorae\Desktop\3.5(7 lab)\bin\Debug\net6.0\3.5(7 lab).pdb
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).AssemblyInfoInputs.cache
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).AssemblyInfo.cs
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).csproj.CoreCompileInputs.cache
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).dll
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\refint\3.5(7 lab).dll
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).pdb
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\3.5(7 lab).genruntimeconfig.cache
+C:\Users\Shikorae\Desktop\3.5(7 lab)\obj\Debug\net6.0\ref\3.5(7 lab).dll
