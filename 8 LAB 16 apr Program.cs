@@ -175,7 +175,7 @@ class Task_4 : Task
     }
     protected override string ProcessText(string text)
     {
-        return processor.ProcessText(text); // Используем processor для обработки текста
+        return processor.ProcessText(text); 
     }
     public override string ToString()
     {
@@ -186,11 +186,10 @@ class Task_5 : Task
 {
     public Task_5(string text, TaskProcessor_ processor) : base(text, processor)
     {
-        ProcessText(text); // обработка текста
+        ProcessText(text); 
     }
     protected override string ProcessText(string text)
     {
-        // Этот метод должен возвращать отсортированный текст
         processedText = SortText(text);
         return processedText;
     }
@@ -249,7 +248,7 @@ class Task_6 : Task
 {
     public Task_6(string text, TaskProcessor_ processor) : base(text, processor)
     {
-        processedText = ProcessText(text); // Assign the result of ProcessText to processedText
+        processedText = ProcessText(text); 
     }
     protected override string ProcessText(string text)
     {
