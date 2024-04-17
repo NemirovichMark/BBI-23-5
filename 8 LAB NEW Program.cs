@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,6 +19,24 @@ abstract class Task
     }
 
     protected abstract string ProcessText(string text);
+
+
+    protected string DecodeText(string text, Dictionary<string, string> codes)
+    {
+        foreach (var code in codes)
+        {
+            text = text.Replace(code.Value, code.Key);
+        }
+        return text;
+    }
+    protected string EncodeText(string text, string[] codes)
+    {
+        for (int i = 0; i < codes.Length; i++)
+        {
+            text = text.Replace(codes[i], ((char)('v' + i)).ToString());
+        }
+        return text;
+    }
 }
 
 class Task_1 : Task
@@ -49,6 +68,7 @@ class Task_1 : Task
     {
         return processedText;
     }
+
 }
 
 class Task_2 : Task
@@ -82,6 +102,19 @@ class Task_2 : Task
             }
         }
         List<KeyValuePair<string, int>> posledList = posledCounts.ToList();
+        SortPosledList(posledList);
+        for (int i = 0; i < 5; i++)
+        {
+            string code = ((char)('p' + i)).ToString();
+            infoposleds.Add(new KeyValuePair<string, char>(posledList[i].Key, code[0]));
+            text = text.Replace(posledList[i].Key, code);
+        }
+
+        return text;
+
+    }
+    private void SortPosledList(List<KeyValuePair<string, int>> posledList)
+    {
         for (int i = 0; i < posledList.Count - 1; i++)
         {
             for (int j = 0; j < posledList.Count - i - 1; j++)
@@ -94,15 +127,6 @@ class Task_2 : Task
                 }
             }
         }
-        for (int i = 0; i < 5; i++)
-        {
-            string code = ((char)('p' + i)).ToString();
-            infoposleds.Add(new KeyValuePair<string, char>(posledList[i].Key, code[0]));
-            text = text.Replace(posledList[i].Key, code);
-        }
-
-        return text;
-
     }
     public override string ToString()
     {
@@ -122,15 +146,7 @@ class Task_3 : Task
     public Task_3(string text, List<KeyValuePair<string, char>> infoposleds) : base(text)
     {
         this.infoposleds = infoposleds;
-        processedText = DecodeText(text, infoposleds);
-    }
-    private string DecodeText(string text, List<KeyValuePair<string, char>> infoposleds)
-    {
-        foreach (var info in infoposleds)
-        {
-            text = text.Replace(info.Value.ToString(), info.Key);
-        }
-        return text;
+        processedText = DecodeText(text, infoposleds.ToDictionary(k => k.Key, v => v.Value.ToString()));
     }
 
     protected override string ProcessText(string text)
@@ -141,7 +157,7 @@ class Task_3 : Task
     public override string ToString()
     {
         return processedText;
-    }
+    }   
 }
 
 class Task_4 : Task
@@ -153,23 +169,7 @@ class Task_4 : Task
     {
         this.codes = codes;
         encodedText = EncodeText(text, codes);
-        processedText = DecodeText(text, codes);
-    }
-    private string EncodeText(string text, string[] codes)
-    {
-        for (int i = 0; i < codes.Length; i++)
-        {
-            text = text.Replace(codes[i], ((char)('v' + i)).ToString());
-        }
-        return text;
-    }
-    private string DecodeText(string text, string[] codes)
-    {
-        for (int i = 0; i < codes.Length; i++)
-        {
-            text = text.Replace(((char)('p' + i)).ToString(), codes[i]);
-        }
-        return text;
+        processedText = DecodeText(text, codes.ToDictionary(k => k, v => ((char)('v' + Array.IndexOf(codes, v))).ToString()));
     }
 
     protected override string ProcessText(string text)
@@ -203,8 +203,21 @@ class Task_5 : Task
             }
         }
         // Гномья сортировка
-        int i = 1;
         var pairs = letterCounts.ToList();
+        SortLetterCounts(pairs);
+        string result = "Доля слов, начинающихся на различные буквы:\n";
+        int totalWords = words.Length;
+        foreach (var pair in pairs)
+        {
+            double prosent = (double)pair.Value / totalWords * 100;
+            result += $"{pair.Key}: {prosent:F2}%\n";
+        }
+
+        return result;
+    }
+    private void SortLetterCounts(List<KeyValuePair<char, int>> pairs)
+    {
+        int i = 1;
         while (i < pairs.Count)
         {
             if (i == 0 || pairs[i].Key >= pairs[i - 1].Key)
@@ -219,15 +232,6 @@ class Task_5 : Task
                 i--;
             }
         }
-        string result = "Доля слов, начинающихся на различные буквы:\n";
-        int totalWords = words.Length;
-        foreach (var pair in pairs)
-        {
-            double prosent = (double)pair.Value / totalWords * 100;
-            result += $"{pair.Key}: {prosent:F2}%\n";
-        }
-
-        return result;
     }
 
     public override string ToString()
