@@ -104,26 +104,56 @@ class Task_9 : Task
             }
         }
 
-        return pairs.Where(pair => pair.Value > 1).OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        return pairs.Where(pair => pair.Value > 1).OrderByDescending(pair => pair.Value).Take(5).ToDictionary(pair => pair.Key, pair => pair.Value);
     }
 
     private bool IsPunctuationOrSymbol(string pair)
     {
         char[] punctuationAndSymbols = { ' ', '.', ',', '!', '?', '-', '(', ')', '"', '\'', '/', '\\', '*', '+', '=', '&', '^', '%', '$', '#', '@', '~', '`', ':', ';', '<', '>', '[', ']', '{', '}', '|', '_', '\t', '\n', '\r' };
-        return punctuationAndSymbols.Contains(pair[0]) || punctuationAndSymbols.Contains(pair[1]);
+
+        foreach (char c in pair)
+        {
+            if (punctuationAndSymbols.Contains(c))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
+
 
     private string CompressText(string text, Dictionary<string, int> frequentPairs)
     {
         string compressedText = text;
+        int index = 0;
+        char[] replacementSymbols = { '&', '₽', '#', '@', '%' };
+
         foreach (var pair in frequentPairs)
         {
-            codeTable.Add(pair.Key, $"/{char.ToUpper(pair.Key[0])}{pair.Value}\\");
+            if (index >= replacementSymbols.Length)
+                break;
+
+            codeTable.Add(pair.Key, $"{replacementSymbols[index]}");
             compressedText = compressedText.Replace(pair.Key, codeTable[pair.Key]);
+            index++;
         }
+
+        var numbers = Regex.Matches(compressedText, @"\d+");
+        foreach (Match number in numbers)
+        {
+            if (index >= replacementSymbols.Length)
+                break;
+
+            codeTable.Add(number.Value, $"{replacementSymbols[index]}");
+            compressedText = compressedText.Replace(number.Value, codeTable[number.Value]);
+            index++;
+        }
+
         return compressedText;
     }
 }
+
 
 class Task_10 : Task
 {
@@ -167,14 +197,13 @@ class Task_12 : Task
 
     public override void ParseText(string text)
     {
-        // Используем регулярное выражение для разделения текста на слова и знаки препинания
-        string[] wordsAndPunctuation = Regex.Split(text, @"(\b\S+\b|[^\w\s])");
+
+         string[] wordsAndPunctuation = Regex.Split(text, @"(\b\S+\b|[^\w\s])");
 
         foreach (string item in wordsAndPunctuation)
         {
-            if (Regex.IsMatch(item, @"\b\S+\b")) // Если это слово
+            if (Regex.IsMatch(item, @"\b\S+\b")) 
             {
-                // Кодируем слово, если оно не было закодировано ранее
                 if (!wordCodes.ContainsKey(item))
                 {
                     wordCodes.Add(item, wordCodes.Count + 1);
@@ -182,11 +211,9 @@ class Task_12 : Task
                 int code = wordCodes[item];
                 string encodedWord = $"#{code}";
                 encodedWordsAndPunctuation.Add(encodedWord);
-                // Заменяем слово на его код
             }
-            else // Если это знак препинания
+            else
             {
-                // Просто добавляем знак препинания в список
                 encodedWordsAndPunctuation.Add(item);
             }
         }
@@ -197,13 +224,12 @@ class Task_12 : Task
         string result = "Decoded Text:\n";
         foreach (string item in encodedWordsAndPunctuation)
         {
-            if (item.StartsWith("#")) // Если это закодированное слово
+            if (item.StartsWith("#"))
             {
-                // Извлекаем код из закодированного слова и находим соответствующее слово в таблице кодов
                 string word = GetDecodedWord(item);
                 result += word + " ";
             }
-            else // Если это знак препинания
+            else
             {
                 result += item;
             }
@@ -213,15 +239,15 @@ class Task_12 : Task
 
     private string GetDecodedWord(string encodedWord)
     {
-        int code = int.Parse(encodedWord.Substring(1)); // Извлекаем код из закодированного слова
+        int code = int.Parse(encodedWord.Substring(1));
         foreach (var pair in wordCodes)
         {
             if (pair.Value == code)
             {
-                return pair.Key; // Возвращаем соответствующее слово
+                return pair.Key; 
             }
         }
-        return ""; // Если код не найден, возвращаем пустую строку
+        return "";
     }
 }
 
@@ -274,7 +300,6 @@ class Task_13 : Task
     {
         string result = "Доля слов, начинающихся на различные буквы:\n";
 
-        // Сортируем буквы в алфавитном порядке
         foreach (char letter in letterPercentages.Keys.OrderBy(c => c))
         {
             result += $"{char.ToUpper(letter)}: {letterPercentages[letter]:F2}%\n";
@@ -285,7 +310,7 @@ class Task_13 : Task
 
 class Task_15 : Task
 {
-    private double sumOfNumbers; // Переменная для хранения суммы чисел
+    private double sumOfNumbers; 
 
     public Task_15(string text) : base(text) { }
 
@@ -294,14 +319,12 @@ class Task_15 : Task
         sumOfNumbers = CalculateSumOfNumbers(text);
     }
 
-    // Метод для вычисления суммы чисел в тексте
     private double CalculateSumOfNumbers(string text)
     {
         double sum = 0;
-        Regex regex = new Regex(@"\b\d+(\,\d+)?(\.\d+)?\b"); // Регулярное выражение для поиска чисел (целых и дробных)
+        Regex regex = new Regex(@"\b\d+(\,\d+)?(\.\d+)?\b"); 
         MatchCollection matches = regex.Matches(text);
 
-        // Проходимся по найденным числам и суммируем их
         foreach (Match match in matches)
         {
             if (double.TryParse(match.Value.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out double number))
@@ -360,6 +383,6 @@ class Program
         Console.WriteLine(task13);
 
         Console.WriteLine("\nTask 15:");
-        Console.WriteLine(task15); 
+        Console.WriteLine(task15);
     }
 }
