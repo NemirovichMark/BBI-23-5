@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -129,13 +129,11 @@ class Program
         Console.WriteLine("\n2 task");
         Console.WriteLine(tasks[1]);
 
-        string path = @"C:\Users\m2302369\source\repos";
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        
         string folderName = "Answer";
         path = Path.Combine(path, folderName);
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
+        
         string fileName1 = Path.Combine(path, "cw2_1.json");
         string fileName2 = Path.Combine(path, "cw2_2.json");
 
