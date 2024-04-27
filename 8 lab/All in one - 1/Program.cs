@@ -1,19 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 abstract class Task
 {
     protected Task(string text) { }
     public abstract void ParseText(string text);
-    protected virtual int Count()
-    {
-        return -1;
-    }
-    private double CountPercent(int number, int total)
-    {
-        return (double)number / (double)total * 100;
-    }
+  
 }
 
 class Task_8 : Task
@@ -25,25 +19,58 @@ class Task_8 : Task
     public override void ParseText(string text)
     {
         int maxLineLength = 50;
-        int currentLineLength = 0;
         string[] words = text.Split(' ');
-        string formattedText = "";
+
+        List<string> lines = new List<string>();
+        StringBuilder currentLine = new StringBuilder();
 
         foreach (string word in words)
         {
-            if (currentLineLength + word.Length <= maxLineLength)
+            if (currentLine.Length + word.Length <= maxLineLength)
             {
-                formattedText += word + " ";
-                currentLineLength += word.Length + 1;
+                currentLine.Append(word).Append(' ');
             }
             else
             {
-                formattedText += Environment.NewLine + word + " ";
-                currentLineLength = word.Length + 1;
+                lines.Add(currentLine.ToString().TrimEnd());
+                currentLine = new StringBuilder(word + " ");
             }
         }
-        formattedText += Environment.NewLine;
-        this.formattedText = formattedText;
+        lines.Add(currentLine.ToString().TrimEnd());
+
+        formattedText = FormatLines(lines.ToArray(), maxLineLength);
+    }
+
+    private static string FormatLines(string[] lines, int maxLineLength)
+    {
+        StringBuilder formattedText = new StringBuilder();
+
+        foreach (string line in lines)
+        {
+            string[] words = line.Split();
+            int totalWordLength = words.Sum(word => word.Length);
+            int totalSpacesToAdd = maxLineLength - totalWordLength;
+            int spacePerWord = words.Length > 1 ? totalSpacesToAdd / (words.Length - 1) : 0;
+            int extraSpaces = words.Length > 1 ? totalSpacesToAdd % (words.Length - 1) : 0;
+
+            StringBuilder formattedLine = new StringBuilder();
+
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                formattedLine.Append(words[i]);
+                formattedLine.Append(' ', spacePerWord);
+                if (extraSpaces > 0)
+                {
+                    formattedLine.Append(' ');
+                    extraSpaces--;
+                }
+            }
+
+            formattedLine.Append(words[words.Length - 1]);
+            formattedText.AppendLine(formattedLine.ToString());
+        }
+
+        return formattedText.ToString();
     }
 
     public override string ToString()
@@ -51,6 +78,8 @@ class Task_8 : Task
         return formattedText;
     }
 }
+
+
 class Task_9 : Task
 {
     private List<KeyValuePair<string, int>> frequentPairs = new List<KeyValuePair<string, int>>();
