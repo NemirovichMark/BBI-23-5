@@ -17,7 +17,6 @@ abstract class Task
         return -1;
     }
 }
-
 class Task_8 : Task
 {
     private readonly int MaxLineLength;
@@ -28,31 +27,25 @@ class Task_8 : Task
         MaxLineLength = maxLineLength;
     }
 
-    public string[] SplitTextIntoLines()
+    public string[] SplitText()
     {
-        string[] words = Text.Split(' ');
-        string currentLine = "";
         List<string> lines = new List<string>();
+        StringBuilder currentLine = new StringBuilder();
 
-        foreach (string word in words)
+        foreach (char simvol in Text)
         {
-            if ((currentLine + word).Length > MaxLineLength)
+            currentLine.Append(simvol);
+
+            if (currentLine.Length == MaxLineLength)
             {
-                lines.Add(currentLine);
-                currentLine = "";
+                lines.Add(currentLine.ToString());
+                currentLine.Clear();
             }
-
-            currentLine += word + " ";
         }
 
-        if (!string.IsNullOrEmpty(currentLine))
+        if (currentLine.Length > 0)
         {
-            lines.Add(currentLine);
-        }
-
-        for (int i = 0; i < lines.Count; i++)
-        {
-            lines[i] = lines[i].PadRight(MaxLineLength);
+            lines.Add(currentLine.ToString().PadRight(MaxLineLength));
         }
 
         return lines.ToArray();
@@ -60,7 +53,7 @@ class Task_8 : Task
 
     public override string ToString()
     {
-        return base.ToString();
+        return string.Join(" ", SplitText());
     }
 
     protected override int Count()
@@ -70,10 +63,8 @@ class Task_8 : Task
 
     protected override void ParseText(string text)
     {
-
     }
 }
-
 class Task_9 : Task
 {
     public Dictionary<string, char> ReplacementTable;
@@ -346,7 +337,7 @@ class Program
 
 
         Task_8 divider = new Task_8(text, 50);
-        string[] lines = divider.SplitTextIntoLines();
+        string[] lines = divider.SplitText();
         foreach (string line in lines)
         {
             Console.WriteLine(line);
