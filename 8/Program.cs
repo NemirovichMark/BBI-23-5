@@ -27,33 +27,74 @@ class Task_8 : Task
         MaxLineLength = maxLineLength;
     }
 
-    public string[] SplitText()
+    public string[] SplitTextIntoLines()
     {
+        string[] words = Text.Split(' ');
+        StringBuilder line = new StringBuilder(MaxLineLength);
         List<string> lines = new List<string>();
-        StringBuilder currentLine = new StringBuilder();
 
-        foreach (char simvol in Text)
+        foreach (string word in words)
         {
-            currentLine.Append(simvol);
 
-            if (currentLine.Length == MaxLineLength)
+            if (line.Length + word.Length > MaxLineLength)
             {
-                lines.Add(currentLine.ToString());
-                currentLine.Clear();
+                lines.Add(line.ToString());
+
+                line.Clear();
             }
+
+            line.Append(word).Append(' ');
         }
 
-        if (currentLine.Length > 0)
+        if (line.Length > 0)
         {
-            lines.Add(currentLine.ToString().PadRight(MaxLineLength));
+            lines.Add(line.ToString());
         }
+
+        AlignSpaces(lines);
 
         return lines.ToArray();
     }
 
+    private void AlignSpaces(List<string> lines)
+    {
+        for (int i = 0; i < lines.Count; i++)
+        {
+            string line = lines[i];
+            string[] words = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            int MAXword = 0;
+            foreach (string word in words)
+            {
+                MAXword = Math.Max(MAXword, word.Length);
+            }
+
+            int totalProbel = MaxLineLength - line.Length + words.Length - 1;
+            int dopProbel = totalProbel % (words.Length - 1);
+            int ProbelPerWord = totalProbel / (words.Length - 1);
+
+            StringBuilder alignedLine = new StringBuilder(MaxLineLength);
+            for (int j = 0; j < words.Length; j++)
+            {
+                alignedLine.Append(words[j]);
+                if (j < words.Length - 1)
+                {
+                    alignedLine.Append(' ', ProbelPerWord + (dopProbel-- > 0 ? 1 : 0));
+                }
+            }
+
+            lines[i] = alignedLine.ToString();
+        }
+    }
+
     public override string ToString()
     {
-        return string.Join(" ", SplitText());
+        StringBuilder result = new StringBuilder();
+        foreach (string line in SplitTextIntoLines())
+        {
+            result.AppendLine(line);
+        }
+        return result.ToString();
     }
 
     protected override int Count()
@@ -63,6 +104,7 @@ class Task_8 : Task
 
     protected override void ParseText(string text)
     {
+
     }
 }
 class Task_9 : Task
@@ -336,12 +378,8 @@ class Program
         string text = "Первое кругосветное путешествие было осуществлено флотом, возглавляемым португальским исследователем Фернаном Магелланом. Путешествие началось 20 сентября 1519 года, когда флот, состоящий из пяти кораблей и примерно 270 человек, отправился из порту Сан-Лукас в Испании. Хотя Магеллан не закончил свое путешествие из-за гибели в битве на Филиппинах в 1521 году, его экспедиция стала первой, которая успешно обогнула Землю и доказала ее круглую форму. Это путешествие открыло новые морские пути и имело огромное значение для картографии и географических открытий.";
 
 
-        Task_8 divider = new Task_8(text, 50);
-        string[] lines = divider.SplitText();
-        foreach (string line in lines)
-        {
-            Console.WriteLine(line);
-        }
+        Task_8 task8 = new Task_8(text, 50);
+        Console.WriteLine(task8);
         Console.WriteLine();
         Console.WriteLine("task9");
 
