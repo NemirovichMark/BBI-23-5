@@ -1,41 +1,56 @@
-﻿namespace ConsoleApp1
+﻿
+
+namespace ConsoleApp1
 {
     class Program
     {
 
         abstract class SportData
         {
-            protected string name { get; }
-            public double time { get; }
+            protected string Name { get; }
+            public double Time { get; }
 
-            protected int distance;
+            protected int Distance;
 
             protected SportData(string name, double time, int distance)
             {
-                this.name = name;
-                this.time = time;
-                this.distance = distance;
+                Name = name;
+                Time = time;
+                Distance = distance;
             }
 
-            public void show()
+            public void Show()
             {
-                Console.WriteLine("{0, 12}: {1:f1} / Ср. скорость: {2:f1} м/c", name, time, distance / time);
+                Console.WriteLine("{0, 12}: {1:f1} / Ср. скорость: {2:f1} м/c", Name, Time, Distance / Time);
             }
 
+            public static void Sort(SportData[] array)
+            {
+                int n = array.Length;
+                int i, j;
+                for (i = 1; i < n; ++i)
+                {
+                    SportData key = array[i];
+                    j = i - 1;
+
+                    while (j >= 0 && array[j].Time > key.Time)
+                    {
+                        array[j + 1] = array[j];
+                        j = j - 1;
+                    }
+                    array[j + 1] = key;
+                }
+            }
         }
 
         class RunData100 : SportData
         {
             public RunData100(string name, double time) : base(name, time, 100) { }
-
-            
         }
 
         class RunData500 : SportData
         {
             public RunData500(string name, double time) : base(name, time, 500) { }
-
-            
         }
 
         static void Main(string[] args)
@@ -67,58 +82,19 @@
                 double time = rand.NextDouble() * 10 + 70;
                 rd500[i] = new RunData500(surname, time);
             }
-            
-            static void Sort100 (RunData100[] rd, int n)
-            {
-                int i = 0;
-                while (i < n)
-                {
-                    if (i == 0)
-                        i++;
-                    if (rd[i].time >= rd[i - 1].time)
-                        i++;
-                    else
-                    {
-                        RunData100 temp = rd[i];
-                        rd[i] = rd[i - 1];
-                        rd[i - 1] = temp;
-                        i--;
-                    }
 
+            SportData.Sort(rd100);
+            SportData.Sort(rd500);
 
-                }
-            }
-            static void Sort500(RunData500[] rd, int n)
-            {
-                int i = 0;
-                while (i < n)
-                {
-                    if (i == 0)
-                        i++;
-                    if (rd[i].time >= rd[i - 1].time)
-                        i++;
-                    else
-                    {
-                        RunData500 temp= rd[i];
-                        rd[i] = rd[i - 1];
-                        rd[i - 1] = temp;
-                        i--;
-                    }
-
-
-                }
-            }
-            Sort100(rd100, N);
-            Sort500(rd500, N);
             Console.WriteLine("Бег 100м.");
             foreach (SportData item in rd100)
             {
-                item.show();
+                item.Show();
             }
             Console.WriteLine("Бег 500м.");
             foreach (SportData item in rd500)
             {
-                item.show();
+                item.Show();
             }
         }
     }

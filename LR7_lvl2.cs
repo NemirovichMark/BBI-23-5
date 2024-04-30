@@ -1,26 +1,26 @@
-﻿namespace ConsoleApp1
+﻿using System;
+
+namespace ConsoleApp1
 {
     class Program
     {
-
         abstract class SportHuman
         {
-            protected string name { get; }
-            protected int team { get; }
-            public double time;
+            public string Name { get; }
+            public int Team { get; }
+            public double Time { get; }
 
             protected SportHuman(string name, double time, int team)
             {
-                this.name = name;
-                this.team = team;
-                this.time = time;
+                Name = name;
+                Team = team;
+                Time = time;
             }
 
-            public void show()
+            public void Show()
             {
-                Console.WriteLine("{0}: {1, 10} - {2:f1} секунд", team, name, time);
+                Console.WriteLine("{0}: {1, 10} - {2:f1} секунд", Team, Name, Time);
             }
-
         }
 
         class SportMan : SportHuman
@@ -77,85 +77,43 @@
                 man[i] = new SportMan(surname, time);
                 common[i + N] = man[i];
             }
-            static void Sort_man(SportMan[] man, int n)
-            {
-                int i = 0;
-                while (i < n)
-                {
-                    if (i == 0)
-                        i++;
-                    if (man[i].time >= man [i - 1].time)
-                        i++;
-                    else
-                    {
-                        SportMan  temp = man[i];
-                        man[i] = man[i - 1];
-                        man[i - 1] = temp;
-                        i--;
-                    }
 
+            Sort_Human(common, N * 2);
 
-                }
-            }
-            static void Sort_Woman(SportWoman [] woman, int n)
-            {
-                int i = 0;
-                while (i < n)
-                {
-                    if (i == 0)
-                        i++;
-                    if (woman[i].time >= woman [i - 1].time)
-                        i++;
-                    else
-                    {
-                        SportWoman  temp = woman[i];
-                        woman[i] = woman [i - 1];
-                        woman[i - 1] = temp;
-                        i--;
-                    }
-
-
-                }
-            }
-            static void Sort_Human(SportHuman [] comman, int n)
-            {
-                int i = 0;
-                while (i < n)
-                {
-                    if (i == 0)
-                        i++;
-                    if (comman[i].time >= comman[i - 1].time)
-                        i++;
-                    else
-                    {
-                        SportHuman temp = comman[i];
-                        comman[i] = comman[i - 1];
-                        comman[i - 1] = temp;
-                        i--;
-                    }
-
-
-                }
-            }
-            Sort_man(man, N);
-            Sort_Woman(woman, N);
-            Sort_Human(common, N);
             Console.WriteLine("-- Мужчины --");
             foreach (SportHuman item in man)
             {
-                item.show();
+                item.Show();
             }
             Console.WriteLine("-- Женщины --");
             foreach (SportHuman item in woman)
             {
-                item.show();
+                item.Show();
             }
             Console.WriteLine("-- Общее --");
             foreach (SportHuman item in common)
             {
-                item.show();
+                item.Show();
+            }
+        }
+
+        static void Sort_Human(SportHuman[] humans, int n)
+        {
+            int i = 0;
+            while (i < n)
+            {
+                if (i == 0)
+                    i++;
+                if (humans[i].Time >= humans[i - 1].Time)
+                    i++;
+                else
+                {
+                    SportHuman temp = humans[i];
+                    humans[i] = humans[i - 1];
+                    humans[i - 1] = temp;
+                    i--;
+                }
             }
         }
     }
 }
-
