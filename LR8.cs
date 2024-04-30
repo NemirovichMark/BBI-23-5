@@ -210,7 +210,7 @@ class Task_11 : Task
 
     protected override void ParseText(string text)
     {
-        string[] surnameArray = text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] surnameArray = text.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
         InsertionSort(surnameArray);
 
@@ -221,38 +221,47 @@ class Task_11 : Task
         }
     }
 
-    static void InsertionSort(string[] array)
+    private void InsertionSort(string[] arr)
     {
-        for (int i = 1; i < array.Length; i++)
+        for (int i = 1; i < arr.Length; i++)
         {
-            string current = array[i];
+            string current = arr[i];
             int j = i - 1;
 
-            while (j >= 0 && CompareStrings(array[j], current) > 0)
+            while (j >= 0 && CompareStrings(arr[j], current) > 0)
             {
-                array[j + 1] = array[j];
+                arr[j + 1] = arr[j];
                 j--;
             }
 
-            array[j + 1] = current;
+            arr[j + 1] = current;
         }
     }
 
-    static int CompareStrings(string s1, string s2)
+    private int CompareStrings(string str1, string str2)
     {
-        int minLength = Math.Min(s1.Length, s2.Length);
+        int minLength = Math.Min(str1.Length, str2.Length);
 
         for (int i = 0; i < minLength; i++)
         {
-            if (s1[i] != s2[i])
-            {
-                return s1[i] - s2[i];
-            }
+            if (str1[i] < str2[i])
+                return -1;
+            else if (str1[i] > str2[i])
+                return 1;
         }
 
-        return s1.Length - s2.Length;
+        if (str1.Length < str2.Length)
+            return -1;
+        else if (str1.Length > str2.Length)
+            return 1;
+
+        return 0;
     }
 }
+
+
+
+
 
 //14
 class Task_14 : Task
@@ -291,6 +300,7 @@ class Program
         string str7 = "Первое кругосветное путешествие было осуществлено флотом, возглавляемым португальским исследователем Фернаном Магелланом. Путешествие началось 20 сентября 1519 года, когда флот, состоящий из пяти кораблей и примерно 270 человек, отправился из порту Сан-Лукас в Испании. Хотя Магеллан не закончил свое путешествие из-за гибели в битве на Филиппинах в 1521 году, его экспедиция стала первой, которая успешно обогнула Землю и доказала ее круглую форму. Это путешествие открыло новые морские пути и имело огромное значение для картографии и географических открытий.";
         string spisok1 = "Иванов, Петров, Смирнов, Соколов, Кузнецов, Попов, Лебедев, Волков, Козлов, Новиков, Иванова, Петрова, Смирнова";
         string spisok2 = "Ivanov, Petrov, Smirnov, Sokolov, Kuznetsov, Popov, Lebedev, Volkov, Kozlov, Novikov, Ivanova, Petrova, Smirnova";
+        string spisok3 = "Ivanov, Petrov, Smirnov, Sokolov, Kuznetsov, Popov, Lebedev, Volkov, Kozlov, Novikov, Ivanova, Petrova, Smirnova, Иванов, Петров, Смирнов, Соколов, Кузнецов, Попов, Лебедев, Волков, Козлов, Новиков, Иванова, Петрова, Смирнова";
 
         //Console.WriteLine("task_1");
         //Task_1 task_1 = new(str1);
@@ -304,11 +314,11 @@ class Program
         //Console.WriteLine(task_3);
         //Console.WriteLine();
 
-        Console.WriteLine("task_5");
-        Task_5 task_5 = new(str3);
+        //Console.WriteLine("task_5");
+        //Task_5 task_5 = new(str3);
 
-        Console.WriteLine(task_5);
-        Console.WriteLine();
+        //Console.WriteLine(task_5);
+        //Console.WriteLine();
 
         //Console.WriteLine("task_7");
         //Task_7 task_7 = new(str4);
@@ -316,11 +326,20 @@ class Program
         //Console.WriteLine(task_7);
         //Console.WriteLine();
 
-        //Console.WriteLine("task_11");
-        //Task_11 task_11 = new(spisok2);
+        Console.WriteLine("task_11");
+        Task_11 task_11 = new(spisok2);
 
-        //Console.WriteLine(task_11);
-        //Console.WriteLine();
+        Console.WriteLine(task_11);
+        Console.WriteLine();
+
+        Task_11 task = new(spisok1);
+
+        Console.WriteLine(task);
+        Console.WriteLine();
+
+        Task_11 taskk = new(spisok3);
+
+        Console.WriteLine(taskk);
 
         //Console.WriteLine("task_14");
         //Task_14 task_14 = new(str3);
