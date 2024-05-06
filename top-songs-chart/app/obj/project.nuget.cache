@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "1Zkbfkm9Lqi2MZOWt4BUGedhk/jU22fVcLuHOX77qqv+WxKWzM6C71Bvsv8GNOtAiEKyxtCntdTGbhDC/+2hHA==",
+  "success": true,
+  "projectFilePath": "/Users/laviprog/Projects/top-songs-chart/app/app.csproj",
+  "expectedPackageFiles": [
+    "/Users/laviprog/.nuget/packages/faker.net/2.0.163/faker.net.2.0.163.nupkg.sha512",
+    "/Users/laviprog/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/Users/laviprog/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
+    "/Users/laviprog/.nuget/packages/protobuf-net/3.2.30/protobuf-net.3.2.30.nupkg.sha512",
+    "/Users/laviprog/.nuget/packages/protobuf-net.core/3.2.30/protobuf-net.core.3.2.30.nupkg.sha512",
+    "/Users/laviprog/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfChart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Chart>
+    <Songs>
+      <ChartSong>
+        <Year>1980</Year>
+        <Artist>Mr. Jonas Faustino Raynor V</Artist>
+        <Title>aspernatur</Title>
+        <GenreSong>Rap</GenreSong>
+        <NumberOfListeners>525313</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>1974</Year>
+        <Artist>Cassandre Volkman</Artist>
+        <Title>beatae</Title>
+        <GenreSong>HipHop</GenreSong>
+        <NumberOfListeners>133020</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2008</Year>
+        <Artist>Ms. Elian Timmothy Hessel IV</Artist>
+        <Title>magnam</Title>
+        <GenreSong>Rock</GenreSong>
+        <NumberOfListeners>713698</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2022</Year>
+        <Artist>Alize Padberg</Artist>
+        <Title>modi</Title>
+        <GenreSong>Rap</GenreSong>
+        <NumberOfListeners>300987</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>1989</Year>
+        <Artist>Antonia Boyer</Artist>
+        <Title>quae</Title>
+        <GenreSong>Jazz</GenreSong>
+        <NumberOfListeners>517951</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2023</Year>
+        <Artist>Mr. Earline Emard DDS</Artist>
+        <Title>sed</Title>
+        <GenreSong>Rock</GenreSong>
+        <NumberOfListeners>10638</NumberOfListeners>
+      </ChartSong>
+    </Songs>
+    <Name>RussiaChart</Name>
+  </Chart>
+  <Chart>
+    <Songs>
+      <ChartSong>
+        <Year>1980</Year>
+        <Artist>Mr. Jonas Faustino Raynor V</Artist>
+        <Title>aspernatur</Title>
+        <GenreSong>Rap</GenreSong>
+        <NumberOfListeners>525313</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>1974</Year>
+        <Artist>Cassandre Volkman</Artist>
+        <Title>beatae</Title>
+        <GenreSong>HipHop</GenreSong>
+        <NumberOfListeners>133020</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2008</Year>
+        <Artist>Ms. Elian Timmothy Hessel IV</Artist>
+        <Title>magnam</Title>
+        <GenreSong>Rock</GenreSong>
+        <NumberOfListeners>713698</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>1998</Year>
+        <Artist>Lenora Roob</Artist>
+        <Title>sit</Title>
+        <GenreSong>Pop</GenreSong>
+        <NumberOfListeners>422468</NumberOfListeners>
+      </ChartSong>
+    </Songs>
+    <Name>BelarusChart</Name>
+  </Chart>
+  <Chart>
+    <Songs>
+      <ChartSong>
+        <Year>1980</Year>
+        <Artist>Mr. Jonas Faustino Raynor V</Artist>
+        <Title>aspernatur</Title>
+        <GenreSong>Rap</GenreSong>
+        <NumberOfListeners>525313</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>1974</Year>
+        <Artist>Cassandre Volkman</Artist>
+        <Title>beatae</Title>
+        <GenreSong>HipHop</GenreSong>
+        <NumberOfListeners>133020</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2022</Year>
+        <Artist>Kendrick Gislason</Artist>
+        <Title>fugit</Title>
+        <GenreSong>Classical</GenreSong>
+        <NumberOfListeners>893810</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2008</Year>
+        <Artist>Ms. Elian Timmothy Hessel IV</Artist>
+        <Title>magnam</Title>
+        <GenreSong>Rock</GenreSong>
+        <NumberOfListeners>713698</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2016</Year>
+        <Artist>Mrs. Garth Flatley PhD</Artist>
+        <Title>quae</Title>
+        <GenreSong>Electronic</GenreSong>
+        <NumberOfListeners>695260</NumberOfListeners>
+      </ChartSong>
+      <ChartSong>
+        <Year>2023</Year>
+        <Artist>Mr. Earline Emard DDS</Artist>
+        <Title>sed</Title>
+        <GenreSong>Rock</GenreSong>
+        <NumberOfListeners>10638</NumberOfListeners>
+      </ChartSong>
+    </Songs>
+    <Name>WorldChart</Name>
+  </Chart>
+</ArrayOfChart>
