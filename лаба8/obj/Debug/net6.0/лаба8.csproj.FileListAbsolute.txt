@@ -1,0 +1,14 @@
+C:\Users\Shikorae\Desktop\лаба8\bin\Debug\net6.0\лаба8.exe
+C:\Users\Shikorae\Desktop\лаба8\bin\Debug\net6.0\лаба8.deps.json
+C:\Users\Shikorae\Desktop\лаба8\bin\Debug\net6.0\лаба8.runtimeconfig.json
+C:\Users\Shikorae\Desktop\лаба8\bin\Debug\net6.0\лаба8.dll
+C:\Users\Shikorae\Desktop\лаба8\bin\Debug\net6.0\лаба8.pdb
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.AssemblyInfoInputs.cache
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.AssemblyInfo.cs
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.csproj.CoreCompileInputs.cache
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.dll
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\refint\лаба8.dll
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.pdb
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\лаба8.genruntimeconfig.cache
+C:\Users\Shikorae\Desktop\лаба8\obj\Debug\net6.0\ref\лаба8.dll
