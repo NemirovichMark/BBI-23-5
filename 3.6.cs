@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3._6
+namespace test_3._6
 {
     struct Antw_rat
     {
@@ -12,23 +12,21 @@ namespace _3._6
         public double rating;
     }
 
-    abstract class Strana
+    struct Opros
     {
-        protected string _nameCountry;
         private string _frage;
         private string[] _antwort;
         public Antw_rat[] antwort_rating;
         private int _num_rats;
 
-        public  Strana(string nC,string s1, string[] antw)
+        public void Opros_(string s1, string[] antw)
         {
-            _nameCountry = nC;
             _frage = s1;
             _antwort = antw;
         }
         public void PrintData()
         {
-            Console.WriteLine("Вопрос: {0} {1}?", _frage,_nameCountry);
+            Console.WriteLine("Вопрос: {0}", _frage);
             for (int i = 0; i < _antwort.Length; i++)
             {
                 Console.WriteLine($"{_antwort[i],-20}");
@@ -37,7 +35,7 @@ namespace _3._6
         }
         public void PrintRating()
         {
-            Antw_rat[] antwort_rating = new Antw_rat[40];
+            Antw_rat[] antwort_rating = new Antw_rat[20];
             int _num_rats = 1;
             for (int i = 0; i < _antwort.Length; i++)
                 antwort_rating[i] = new Antw_rat();
@@ -76,23 +74,30 @@ namespace _3._6
                 }
             }
 
-            int imax; Antw_rat max;
-            for (int i = 0; i < _num_rats - 1; i++)     //сортировка
+         /*   int index = 1;
+            int nextIndex = index + 1;
+            while (index < _num_rats)
             {
-                imax = i;
-                for (int j = i + 1; j < _num_rats; j++)
+                if (antwort_rating[index - 1].rating > antwort_rating[index].rating)
                 {
-                    if (antwort_rating[i].rating < antwort_rating[j].rating)
-                    {
-                        imax = j;
-                    }
-
+                    index = nextIndex;
+                    nextIndex++;
                 }
-                max = antwort_rating[i];
-                antwort_rating[i] = antwort_rating[imax];
-                antwort_rating[imax] = max;
-            }
+                else
+                {
+                    Antw_rat spTemp = antwort_rating[index];
+                    antwort_rating[index] = antwort_rating[index - 1];
+                    antwort_rating[index - 1] = spTemp;
+                    index--;
+                    if (index == 0)
+                    {
+                        index = nextIndex;
+                        nextIndex++;
+                    }
+                }
+            }*/
 
+            sort(antwort_rating, _num_rats);
             if (_num_rats > 5) { _num_rats = 5; }
 
             Console.WriteLine("-----------Рейтинг----------");
@@ -104,34 +109,30 @@ namespace _3._6
             }
             Console.WriteLine("===========================");
         }
-
-    }
-    class Russia : Strana
-    {
-
-        new private const string _nameCountry = "Россия";
-
-        public Russia(string s1, string[] len) : base(_nameCountry, s1, len)
+        private void sort(Antw_rat[]  antwort_rating, int num_rats)
         {
-
-
-        }
-
-    }
-    class Japan : Strana
-    {
-       new private const string _nameCountry = "Япония";
-        public Japan(string s1, string[] len) : base(_nameCountry, s1, len)
-        {
-        }
-    }
-    class  CommonL: Strana
-    {
-
-        new private const string _nameCountry = "Россия + Япония";
-
-        public CommonL(string s1, string[] len) : base(_nameCountry, s1, len)
-        {
+            int index = 1;
+            int nextIndex = index + 1;
+            while (index < num_rats)
+            {
+                if (antwort_rating[index - 1].rating > antwort_rating[index].rating)
+                {
+                    index = nextIndex;
+                    nextIndex++;
+                }
+                else
+                {
+                    Antw_rat spTemp = antwort_rating[index];
+                    antwort_rating[index] = antwort_rating[index - 1];
+                    antwort_rating[index - 1] = spTemp;
+                    index--;
+                    if (index == 0)
+                    {
+                        index = nextIndex;
+                        nextIndex++;
+                    }
+                }
+            }
         }
 
     }
@@ -139,7 +140,7 @@ namespace _3._6
     {
         static void Main(string[] args)
         {
-            String[,] dataY = new string[20, 3]
+            String[,] data = new string[20, 3]
                     {{ "журавль","исполнительность","остров" },
                     { "тигр","исполнительность","икебана" },
                     { "фазан","миролюбие","икебана" },
@@ -161,100 +162,31 @@ namespace _3._6
                     { "тануки","вежливость","саке" },
                     { "тануки","вежливость","катана" }
                     };
-            String[,] dataR = new string[20, 3]
-                    {{ "медведь","находчивость","водка" },
-                    { "заяц","смелость","самовар" },
-                    { "лиса","щедрость","матрешка" },
-                    { "бобр","находчивость","ушанка" },
-                    { "бобр","находчивость","зима" },
-                    { "медведь","находчивость","матрешка" },
-                    { "орел","смелость","ушанка" },
-                    { "медведь","","матрешка" },
-                    { "олень","находчивость","зима" },
-                    { "медведь","смелость","матрешка" },
-                    { "медведь","","катана" },
-                    { "олень","смелость","" },
-                    { "медведь","отвага","водка" },
-                    { "фазан","отвага","зима" },
-                    { "олень","вежливость","водка" },
-                    { "бобр","","" },
-                    { "медведь","щедрость","матрешка" },
-                    { "заяц","трудолюбие","самовар" },
-                    { "заяц","честность","матрешка" },
-                    { "лиса","отвага","самовар" }
-                    };
+            Opros vopr1 = new Opros();
+            string[] masOtv = new string[20];
+            for (int i = 0; i < masOtv.Length; i++)
+                masOtv[i] = data[i, 0];
+           
+            vopr1.Opros_("Какое животное вы связываете с Японией и японцами?", masOtv);
+            vopr1.PrintData();
+            vopr1.PrintRating();
 
-            string[] masOtvY = new string[20];
-            for (int i = 0; i < masOtvY.Length; i++)
-                masOtvY[i] = dataY[i, 0];
+            Opros vopr2 = new Opros();
 
-            Japan vopr1Y = new Japan("Какое животное вы связываете со страной ", masOtvY);
-            vopr1Y.PrintData();
-            vopr1Y.PrintRating();
+            for (int i = 0; i < masOtv.Length; i++)
+                masOtv[i] = data[i, 1];
 
-            string[] masOtvR = new string[20];
-            for (int i = 0; i < masOtvR.Length; i++)
-                masOtvR[i] = dataR[i, 0];
+            vopr2.Opros_("Какая черта характера присуща японцам больше всего?", masOtv);
+            vopr2.PrintData();
+            vopr2.PrintRating();
 
-            Russia vopr1R = new Russia("Какое животное вы связываете со страной ", masOtvR);
-            vopr1R.PrintData();
-            vopr1R.PrintRating();
-            string[] masOtvC = new string[40];
-            CommonArray(masOtvY, masOtvR, masOtvC);
+            Opros vopr3 = new Opros();
+            for (int i = 0; i < masOtv.Length; i++)
+                masOtv[i] = data[i, 2];
 
-
-            CommonL vopr1C = new CommonL("Какое животное вы связываете со страной ", masOtvC);
-            vopr1C.PrintData();
-            vopr1C.PrintRating();
-
-            for (int i = 0; i < masOtvY.Length; i++)
-                masOtvY[i] = dataY[i, 1];
-
-            Japan vopr2Y = new Japan("Какая черта характера присуща больше всего жителям страны ", masOtvY);
-            vopr2Y.PrintData();
-            vopr2Y.PrintRating();
-
-            for (int i = 0; i < masOtvR.Length; i++)
-                masOtvR[i] = dataR[i, 1];
-
-            Russia vopr2R = new Russia("Какая черта характера присуща больше всего жителям страны ", masOtvR);
-            vopr2R.PrintData();
-            vopr2R.PrintRating();
-
-            CommonArray(masOtvY, masOtvR, masOtvC);
-            CommonL vopr2C = new CommonL("Какая черта характера присуща больше всего жителям страны ", masOtvC);
-            vopr2C.PrintData();
-            vopr2C.PrintRating();
-
-            for (int i = 0; i < masOtvY.Length; i++)
-            masOtvY[i] = dataY[i, 2];
-
-            Japan vopr3Y = new Japan("Какой неодушевленный предмет или понятия вы связываете со страной ", masOtvY);
-            vopr3Y.PrintData();
-            vopr3Y.PrintRating();
-
-            for (int i = 0; i < masOtvR.Length; i++)
-                masOtvR[i] = dataR[i, 2];
-
-            Russia vopr3R = new Russia("Какой неодушевленный предмет или понятия вы связываете со страной ", masOtvR);
-            vopr3R.PrintData();
-            vopr3R.PrintRating();
-
-            CommonArray(masOtvY, masOtvR, masOtvC);
-            CommonL vopr3C = new CommonL("Какой неодушевленный предмет или понятия вы связываете со страной ", masOtvC);
-            vopr3C.PrintData();
-            vopr3C.PrintRating();
-        } 
-        static void CommonArray(string[] mas1, string[] mas2,string[] masCommon)
-        {
-            for (int i = 0; i<mas1.Length; i++)
-                masCommon[i] = mas1[i];
-            int n = mas1.Length;
-            for (int i = n; i<n+ mas2.Length; i++)
-                masCommon[i] = mas2[i - n];
+            vopr3.Opros_("Какой неодушевленный предмет или понятия вы связываете с Японией?", masOtv);
+            vopr3.PrintData();
+            vopr3.PrintRating();
         }
     }
-   
-         
 }
-
