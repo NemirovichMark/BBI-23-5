@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace test_3._6
+namespace аААААААаааааа
 {
     struct Antw_rat
     {
@@ -16,7 +16,7 @@ namespace test_3._6
     {
         private string _frage;
         private string[] _antwort;
-        public Antw_rat[] antwort_rating;
+        private Antw_rat[] antwort_rating;
         private int _num_rats;
 
         public void Opros_(string s1, string[] antw)
@@ -74,28 +74,7 @@ namespace test_3._6
                 }
             }
 
-         /*   int index = 1;
-            int nextIndex = index + 1;
-            while (index < _num_rats)
-            {
-                if (antwort_rating[index - 1].rating > antwort_rating[index].rating)
-                {
-                    index = nextIndex;
-                    nextIndex++;
-                }
-                else
-                {
-                    Antw_rat spTemp = antwort_rating[index];
-                    antwort_rating[index] = antwort_rating[index - 1];
-                    antwort_rating[index - 1] = spTemp;
-                    index--;
-                    if (index == 0)
-                    {
-                        index = nextIndex;
-                        nextIndex++;
-                    }
-                }
-            }*/
+
 
             sort(antwort_rating, _num_rats);
             if (_num_rats > 5) { _num_rats = 5; }
@@ -109,7 +88,7 @@ namespace test_3._6
             }
             Console.WriteLine("===========================");
         }
-        private void sort(Antw_rat[]  antwort_rating, int num_rats)
+        private void sort(Antw_rat[] antwort_rating, int num_rats)
         {
             int index = 1;
             int nextIndex = index + 1;
@@ -166,7 +145,7 @@ namespace test_3._6
             string[] masOtv = new string[20];
             for (int i = 0; i < masOtv.Length; i++)
                 masOtv[i] = data[i, 0];
-           
+
             vopr1.Opros_("Какое животное вы связываете с Японией и японцами?", masOtv);
             vopr1.PrintData();
             vopr1.PrintRating();
