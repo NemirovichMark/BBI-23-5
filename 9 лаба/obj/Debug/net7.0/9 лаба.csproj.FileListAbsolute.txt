@@ -1,0 +1,17 @@
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/bin/Debug/net7.0/9 лаба
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/bin/Debug/net7.0/9 лаба.deps.json
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/bin/Debug/net7.0/9 лаба.runtimeconfig.json
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/bin/Debug/net7.0/9 лаба.dll
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/bin/Debug/net7.0/9 лаба.pdb
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.csproj.AssemblyReference.cache
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.GeneratedMSBuildEditorConfig.editorconfig
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.AssemblyInfoInputs.cache
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.AssemblyInfo.cs
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.csproj.CoreCompileInputs.cache
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.csproj.CopyComplete
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.dll
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/refint/9 лаба.dll
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.pdb
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/9 лаба.genruntimeconfig.cache
+/Users/liliyakhvoshch/Projects/9 лаба/9 лаба/obj/Debug/net7.0/ref/9 лаба.dll

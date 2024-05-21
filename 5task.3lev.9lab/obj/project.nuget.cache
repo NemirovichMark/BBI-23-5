@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "sBAlPe1IX8APm+DV40XFeJxWBfRm4UsEXxTgAn9pKYtFLjs3rvWLwjFt1gLSL3X8i7ZK5991kzOOD0HWKbwt8Q==",
+  "success": true,
+  "projectFilePath": "/Users/liliyakhvoshch/Projects/5task.3lev.9lab/5task.3lev.9lab/5task.3lev.9lab.csproj",
+  "expectedPackageFiles": [
+    "/Users/liliyakhvoshch/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
