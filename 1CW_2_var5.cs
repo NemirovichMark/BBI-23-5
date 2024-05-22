@@ -100,8 +100,8 @@ class Program
         }
 
         Embrasure[] embrasures = new Embrasure[windows.Length + doors.Length];
-        Array.Copy(windows, embrasures, windows.Length);
-        Array.Copy(doors, 0, embrasures, windows.Length, doors.Length);
+        CopyArray(windows, embrasures, 0);
+        CopyArray(doors, embrasures, windows.Length);
 
         SortEmbrasures(embrasures);
 
@@ -126,6 +126,13 @@ class Program
                     embrasures[j + 1] = temp;
                 }
             }
+        }
+    }
+    static void CopyArray(Embrasure[] source, Embrasure[] destination, int startIndex)
+    {
+        for (int i = 0; i < source.Length; i++)
+        {
+            destination[startIndex + i] = source[i];
         }
     }
 }
