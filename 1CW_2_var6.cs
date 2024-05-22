@@ -134,27 +134,27 @@ class Program
     {
         PaperBook[] paperBooks = new PaperBook[]
     {
-            new PaperBook("", 123456, "", 1999, 200, true),
-            new PaperBook("", 123457, "", 1985, 1500, false),
-            new PaperBook("", 123458, "", 2001, 640, true),
-            new PaperBook("", 123459, "", 1970, 800, false),
-            new PaperBook("", 123460, "", 2010, 912, true),
+            new PaperBook("Название не придумала 1", 123456, "Автор 1", 1999, 200, true),
+            new PaperBook("Название не придумала 2", 123457, "Автор номер 2", 1985, 1500, false),
+            new PaperBook("Название не придумала 3", 123458, "Автор под номером 3", 2001, 640, true),
+            new PaperBook("Название не придумала 4", 123459, "Автор с номером 4", 1970, 800, false),
+            new PaperBook("Название не придумала 5", 123460, "У автора номер 5", 2010, 912, true),
     };
         ElectronicBook[] electronicBooks = new ElectronicBook[]
     {
-            new ElectronicBook("", 223456, "", 2005, 170, "pdf"),
-            new ElectronicBook("", 223457, "", 2015, 340, "epub"),
-            new ElectronicBook("", 223458, "", 2010, 290, "pdf"),
-            new ElectronicBook("", 223459, "", 2000, 700, "fb2"),
-            new ElectronicBook("", 223460, "", 2020, 300, "epub"),
+            new ElectronicBook("Придумаю навзание 1", 223456, "Автор праоа", 2005, 170, "pdf"),
+            new ElectronicBook("Придумаю навзание 2", 223457, "Автор апраоп", 2015, 340, "epub"),
+            new ElectronicBook("Придумаю навзание 3", 223458, "Автор апапра", 2010, 290, "pdf"),
+            new ElectronicBook("Придумаю навзание 4", 223459, "Автор ыпвпа", 2000, 700, "fb2"),
+            new ElectronicBook("Придумаю навзание 5", 223460, "Автор", 2020, 300, "epub"),
     };
         AudioBook[] audioBooks = new AudioBook[]
     {
-            new AudioBook("", 323456, "", 1995, 300, true),
-            new AudioBook("", 323457, "", 2005, 600, false),
-            new AudioBook("", 323458, "", 2015, 350, true),
-            new AudioBook("", 323459, "", 2010, 190, false),
-            new AudioBook("", 323460, "", 2022, 270, true),
+            new AudioBook("Или не придумаю название 1", 323456, "Автору", 1995, 300, true),
+            new AudioBook("Или не придумаю название 2", 323457, "Автора", 2005, 600, false),
+            new AudioBook("Или не придумаю название 3", 323458, "Автором", 2015, 350, true),
+            new AudioBook("Или не придумаю название 4", 323459, "Авторы", 2010, 190, false),
+            new AudioBook("Или не придумаю название 5", 323460, "Аторка", 2022, 270, true),
     };
         SortBooksByPrice(paperBooks);
         Console.WriteLine("Бумажные книги:");
