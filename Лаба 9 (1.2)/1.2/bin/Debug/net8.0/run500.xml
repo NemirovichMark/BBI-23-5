@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRun500 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Run500>
+    <Familiya>Runner 3.1</Familiya>
+    <Group>2</Group>
+    <Fam_prepod>C</Fam_prepod>
+    <Rez>45</Rez>
+  </Run500>
+  <Run500>
+    <Familiya>Runner 1.1</Familiya>
+    <Group>5</Group>
+    <Fam_prepod>A</Fam_prepod>
+    <Rez>41.2</Rez>
+  </Run500>
+  <Run500>
+    <Familiya>Runner 2.1</Familiya>
+    <Group>3</Group>
+    <Fam_prepod>B</Fam_prepod>
+    <Rez>40.6</Rez>
+  </Run500>
+  <Run500>
+    <Familiya>Runner 5.1</Familiya>
+    <Group>1</Group>
+    <Fam_prepod>F</Fam_prepod>
+    <Rez>34.1</Rez>
+  </Run500>
+  <Run500>
+    <Familiya>Runner 4.1</Familiya>
+    <Group>6</Group>
+    <Fam_prepod>D</Fam_prepod>
+    <Rez>28.89</Rez>
+  </Run500>
+</ArrayOfRun500>
