@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "OMiGsb4yi/eB5WDfeSnKM4KkUBrzYj4XBmJDUuqWoChJ5Z1Ct8WLzTiArZ8nWya/yUsELuC54PLwJPuR0AHyGw==",
+  "success": true,
+  "projectFilePath": "/Users/liliyakhvoshch/Desktop/Serialise/Serialise.csproj",
+  "expectedPackageFiles": [
+    "/Users/liliyakhvoshch/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
