@@ -1,0 +1,133 @@
+using CW1;
+
+namespace CW1
+{
+    abstract class Shape
+    {
+        public string Name { get; set; }
+
+        public abstract double CalculateArea();
+        public abstract double CalculatePerimeter();
+    }
+
+    class Round : Shape
+    {
+        public double Radius { get; set; }
+
+        public Round(double radius)
+        {
+            Name = "Круг";
+            Radius = radius;
+        }
+
+        public override double CalculateArea()
+        {
+            return Math.PI * Radius * Radius;
+        }
+
+        public override double CalculatePerimeter()
+        {
+            return 2 * Math.PI * Radius;
+        }
+    }
+
+    class Square : Shape
+    {
+        public double Side { get; set; }
+
+        public Square(double side)
+        {
+            Name = "Квадрат";
+            Side = side;
+        }
+
+        public override double CalculateArea()
+        {
+            return Side * Side;
+        }
+
+        public override double CalculatePerimeter()
+        {
+            return 4 * Side;
+        }
+    }
+    class Triangle : Shape
+    {
+        public double SideA { get; set; }
+        public double SideB { get; set; }
+        public double SideC { get; set; }
+
+        public Triangle(double sideA, double sideB, double sideC)
+        {
+            Name = "Треугольник";
+            SideA = sideA;
+            SideB = sideB;
+            SideC = sideC;
+        }
+
+        public override double CalculateArea()
+        {
+            double p = (SideA + SideB + SideC) / 2;
+            double area = Math.Sqrt(p * (p - SideA) * (p - SideB) * (p - SideC));
+            return area;
+        }
+
+        public override double CalculatePerimeter()
+        {
+            return SideA + SideB + SideC;
+        }
+
+        public string GetTriangleType()
+        {
+            if (SideA == SideB && SideB == SideC)
+            {
+                return "Равносторонний";
+            }
+            else if (SideA == SideB || SideA == SideC || SideB == SideC)
+            {
+                return "Равнобедренный";
+            }
+            else
+            {
+                return "Разносторонний";
+            }
+        }
+        public void PrintInfo()
+        {
+            Console.WriteLine("Сторона A: " + SideA);
+            Console.WriteLine("Сторона B: " + SideB);
+            Console.WriteLine("Сторона C: " + SideC);
+            Console.WriteLine("Площадь треугольника: " + CalculateArea());
+            Console.WriteLine("Тип треугольника: " + GetTriangleType());
+            Console.WriteLine();
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Shape[] shapes = new Shape[]
+            {
+            new Round(5),
+            new Round(3),
+            new Square(4),
+            new Square(6),
+            new Triangle(3, 4, 5)
+            };
+
+            for (int i = 0; i < shapes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < shapes.Length; j++)
+                {
+                    if (shapes[i].CalculateArea() < shapes[j].CalculateArea())
+                    {
+                        var temp = shapes[i];
+                        shapes[i] = shapes[j];
+                        shapes[j] = temp;
+                    }
+                }
+            }
+        }
+    }
+}
