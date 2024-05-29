@@ -1,0 +1,121 @@
+using Newtonsoft.Json;
+
+namespace _4task
+{
+    class Program
+    {
+        static int Count(string s)
+        {
+            string[] predlogi = { "и", "в", "на", "с", "к", "по", "за", "или", "но", "а", "что", "если", "когда" };
+            int count = 0;
+
+            foreach (string word in s.Split(' '))
+            {
+                string cleanWord = RemoveNonLetters(word).ToLower().Replace("а", "").Replace("е", "").Replace("ё", "").Replace("и", "").Replace("о", "").Replace("у", "").Replace("ы", "").Replace("э", "").Replace("ю", "").Replace("я", "");
+
+                foreach (string predlog in predlogi)
+                {
+                    if (predlog == cleanWord)
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        static string RemoveNonLetters(string word)
+        {
+            string result = "";
+            foreach (char ch in word)
+            {
+                if ((ch >= 'А' && ch <= 'Я') || (ch >= 'а' && ch <= 'я')) // русский алфавит
+                {
+                    result += ch;
+                }
+            }
+            return result;
+        }
+
+        static double Calculate(string text)
+        {
+            int allLetters = 0;
+            int allSymbols = 0;
+
+            string textNew = text.ToLower().Replace(" ", "");
+
+            foreach (char c in textNew)
+            {
+                if (char.IsLetter(c) && textNew.IndexOf(c) == textNew.LastIndexOf(c))
+                {
+                    allLetters++;
+                }
+                else if (!char.IsLetter(c) && !char.IsWhiteSpace(c) && textNew.IndexOf(c) == textNew.LastIndexOf(c))
+                {
+                    allSymbols++;
+                }
+            }
+
+            double result = 0;
+
+            if (allSymbols == 0)
+            {
+                return allLetters;
+            }
+            else
+            {
+                result = allLetters / allSymbols;
+            }
+            return result;
+        }
+
+        static void Main()
+        {
+
+            string input = "Я пошел в лес, а потом на реку. К этому времени уже стемнело.";
+            int countResult = Count(input);
+            string text = "привет 1.2";
+            double calculateResult = Calculate(text);
+
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string path_file = Path.Combine(desktop, "Test");
+
+            if (!Directory.Exists(path_file))
+            {
+                Directory.CreateDirectory(path_file);
+                //File.WriteAllText(Path.Combine(pathFolder, "cw2_1.json"), "{}");
+                //File.WriteAllText(Path.Combine(pathFolder, "cw2_2.json"), "{}");
+
+                Console.WriteLine("Папка 'Test' и файлы 'cw2_1.json', 'cw2_2.json' созданы.");
+            }
+            else
+            {
+                Console.WriteLine("Папка уже существует");
+            }
+            string jsonData1 = JsonConvert.SerializeObject(countResult);
+            string jsonData2 = JsonConvert.SerializeObject(calculateResult);
+
+            File.WriteAllText(Path.Combine(path_file, "cw2_1.json"), jsonData1);
+            File.WriteAllText(Path.Combine(path_file, "cw2_2.json"), jsonData2);
+
+
+            if (File.Exists(Path.Combine(path_file, "cw2_1.json")))
+            {
+                string json1 = File.ReadAllText(Path.Combine(path_file, "cw2_1.json"));
+                var data1 = JsonConvert.DeserializeObject(json1);
+                Console.WriteLine("Входные данные из файла cw2_1.json:");
+                Console.WriteLine(data1.ToString());
+            }
+
+            if (File.Exists(Path.Combine(path_file, "cw2_2.json")))
+            {
+                string json2 = File.ReadAllText(Path.Combine(path_file, "cw2_2.json"));
+                var data2 = JsonConvert.DeserializeObject(json2);
+                Console.WriteLine("Входные данные из файла cw2_2.json:");
+                Console.WriteLine(data2.ToString());
+            }
+        }
+    }
+}

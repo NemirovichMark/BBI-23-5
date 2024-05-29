@@ -1,0 +1,25 @@
+namespace _3task
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string path_file = Path.Combine(desktop, "Test");
+
+            if (!Directory.Exists(path_file))
+            {
+                Directory.CreateDirectory(path_file);
+                File.WriteAllText(Path.Combine(path_file, "cw2_1.json"), "{}");
+                File.WriteAllText(Path.Combine(path_file, "cw2_2.json"), "{}");
+
+                Console.WriteLine("Папка 'Test' и файлы 'cw2_1.json', 'cw2_2.json' созданы.");
+            }
+            else
+            {
+                Console.WriteLine("Папка уже существует");
+            }
+        }
+    }
+}
