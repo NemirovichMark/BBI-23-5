@@ -1,0 +1,47 @@
+namespace _2task
+{
+    class Program
+    {
+        static double Calculate(string text)
+        {
+            int allLetters = 0;
+
+            int allsimbols = 0;
+
+            string textNew = text.ToLower().Replace(" ", "");
+
+            foreach (char c in textNew)
+            {
+                if (char.IsLetter(c) && textNew.IndexOf(c) == textNew.LastIndexOf(c))
+                {
+                    allLetters++;
+                }
+                else if (!char.IsLetter(c) && !char.IsWhiteSpace(c) && textNew.IndexOf(c) == textNew.LastIndexOf(c))
+                {
+                    allsimbols++;
+                }
+            }
+
+            double result = 0;
+
+            if (allsimbols == 0)
+            {
+                return allLetters;
+            }
+            else
+            {
+                result = allLetters / allsimbols;
+            }
+            return result;
+
+        }
+
+        static void Main()
+        {
+            string text = "привет 1.2";
+            double result = Calculate(text);
+
+            Console.WriteLine($"Отношение различных букв к различным символам и цифрам: {result}");
+        }
+    }
+}

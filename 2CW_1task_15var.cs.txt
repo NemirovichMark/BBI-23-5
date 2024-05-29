@@ -1,0 +1,47 @@
+namespace _1task
+{
+    class Program
+    {
+        static int Count(string s)
+        {
+            string[] predlogi = { "и", "в", "на", "с", "к", "по", "за", "или", "но", "а", "что", "если", "когда" };
+            int count = 0;
+
+            foreach (string word in s.Split(' '))
+            {
+                string cleanWord = RemoveNonLetters(word).ToLower().Replace("а", "").Replace("е", "").Replace("ё", "").Replace("и", "").Replace("о", "").Replace("у", "").Replace("ы", "").Replace("э", "").Replace("ю", "").Replace("я", "");
+
+                foreach (string predlog in predlogi)
+                {
+                    if (predlog == cleanWord)
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        static string RemoveNonLetters(string word)
+        {
+            string result = "";
+            foreach (char ch in word)
+            {
+                if ((ch >= 'А' && ch <= 'Я') || (ch >= 'а' && ch <= 'я')) // русский алфавит
+                {
+                    result += ch;
+                }
+            }
+            return result;
+        }
+
+        static void Main()
+        {
+            string input = "Я пошел в лес, а потом на реку. К этому времени уже стемнело.";
+            int result = Count(input);
+            Console.WriteLine($"Количество предлогов и союзов без гласных букв: {result}");
+        }
+    }
+}
