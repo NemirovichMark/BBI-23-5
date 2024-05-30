@@ -71,9 +71,6 @@ namespace App
             return $"{base.ToString()}\n{Order.ToString()}";
         }
 
-        public interface IPayable
-        {
-            void Pay(List<Menu> menuItems);
-        }
+        
     }
 }
