@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Customer>
+    <Surname>Имя1</Surname>
+    <Name>Фамилия1</Name>
+    <Age>47</Age>
+  </Customer>
+  <Customer>
+    <Surname>Имя2</Surname>
+    <Name>Фамилия2</Name>
+    <Age>43</Age>
+  </Customer>
+  <Customer>
+    <Surname>Имя3</Surname>
+    <Name>Фамилия3</Name>
+    <Age>22</Age>
+  </Customer>
+</ArrayOfCustomer>
