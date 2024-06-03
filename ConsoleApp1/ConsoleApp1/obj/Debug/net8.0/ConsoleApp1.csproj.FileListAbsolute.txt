@@ -1,0 +1,14 @@
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.deps.json
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.runtimeconfig.json
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.dll
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/bin/Debug/net8.0/ConsoleApp1.pdb
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.AssemblyInfoInputs.cache
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.AssemblyInfo.cs
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.csproj.CoreCompileInputs.cache
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.dll
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/refint/ConsoleApp1.dll
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.pdb
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.genruntimeconfig.cache
+/Users/laviprog/Projects/ConsoleApp1/ConsoleApp1/obj/Debug/net8.0/ref/ConsoleApp1.dll
